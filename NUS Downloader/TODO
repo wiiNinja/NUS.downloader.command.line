@@ -1,0 +1,21 @@
+///////////////////////////////////////////
+// NUS Downloader: TODO                  //
+// $Rev:: 86                           $ //
+// $Author:: gb.luke                   $ //
+// $Date:: 2010-07-09 17:54:13 +0000 (#$ //
+///////////////////////////////////////////
+
+Make more compatible with mono for Linux.
+Broken stuff:
+Working stuff:
+ - Downloading anything
+ - Displaying Form1
+ - Loading database
+ - Generating update scripts
+
+
+
+Finish scripting improvements.
+
+Routine:
+Verify version number before releases!
