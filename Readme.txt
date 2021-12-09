@@ -42,7 +42,7 @@ Disclaimer:
 Revision History:
     v0.1b - 5/5/2009 - Initial version
     v0.2 - 5/6/2009 - Added option to retrieve the latest version of a title
-    v0.3 - 12/21/2021 - Retrieved the latest version of NUS Downloader from Google Code that was already archived.
+    v0.3 - 12/08/2021 - Retrieved the latest version of NUS Downloader from Google Code that was already archived.
 
 -------- 0 ---------
 wiiNinja
