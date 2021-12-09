@@ -37,6 +37,10 @@ namespace nusd
                 Console.WriteLine("              Use \"*\" (no quotes) to get the latest version");
                 Console.WriteLine("    packwad = Optional: A wad file will be generated");
                 Console.WriteLine("    localuse = Optional: All the downloaded files will be retained locally");
+                Console.WriteLine("    createdecryptedcontents = Optional: Create decrypted (.app) contents");
+                Console.WriteLine("    truchapatch = Optional: Apply Trucha patch");
+                Console.WriteLine("    esidentitypatch = Optional: Apply ES Identity patch");
+                Console.WriteLine("    nandpermissionpatch = Optional: Apply NAND Permission patch");
             }
             else
             {
