@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1585
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUSDownloaderCli", "NUSDownloader\NUSDownloaderCli.csproj", "{DB1289FA-BA83-408F-A576-326E5EC4CC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nusd", "nusd\nusd.csproj", "{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CommandLine|Any CPU = CommandLine|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB1289FA-BA83-408F-A576-326E5EC4CC6D}.CommandLine|Any CPU.ActiveCfg = CommandLine|Any CPU
+		{DB1289FA-BA83-408F-A576-326E5EC4CC6D}.CommandLine|Any CPU.Build.0 = CommandLine|Any CPU
+		{DB1289FA-BA83-408F-A576-326E5EC4CC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB1289FA-BA83-408F-A576-326E5EC4CC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB1289FA-BA83-408F-A576-326E5EC4CC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB1289FA-BA83-408F-A576-326E5EC4CC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}.CommandLine|Any CPU.ActiveCfg = Release|Any CPU
+		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}.CommandLine|Any CPU.Build.0 = Release|Any CPU
+		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AFD065A-C224-4F37-9BD8-25E4208A45FE}
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
