@@ -26,7 +26,7 @@ namespace nusd
             nusForm.SetServerButtonText("Wii");
             nusForm.SetTruchaBugEnable(true);
 
-            Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code v19 by WB3000");
+            Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code v1.9 by WB3000");
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage:");
