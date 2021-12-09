@@ -12,14 +12,19 @@ namespace nusd
 
         static void Main(string[] args)
         {
+            bool TruchaBugEnable = false;
+            bool ESIdentityPatchEnable = false;
+            bool NandPermissionPatchEnable = false;
             NUS_Downloader.Form1 nusForm = new NUS_Downloader.Form1();
 
-            Console.WriteLine($"nusd version: {NUSD_VERSION}");
             // Initialize the checkboxes and radio boxes
             nusForm.SetPackWad(false);
             nusForm.SetLocalUse(true);
             nusForm.SetKeepEncryptedContent(true);
+            nusForm.SetCreateDecryptedContents(false);
+            nusForm.SetPatchIOS(false);
             nusForm.SetServerButtonText("Wii");
+            nusForm.SetTruchaBugEnable(true);
 
             Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code v19 by WB3000");
             if (args.Length < 2)
@@ -42,7 +47,6 @@ namespace nusd
                     {
                         case 0:
                             // First command line argument is ALWAYS the TitleID
-                            // nusForm.titleidbox.Text = args[i];
                             nusForm.SetTileId(args[i]);
                             break;
 
@@ -60,26 +64,52 @@ namespace nusd
                             break;
 
                         default:
-                            // Only two other cmd line args are handled: packwad and localuse
-                            if (args[i] == "packwad")
+                            // Other cmd line args are handled: packwad, localuse, TruchaPatch, EsIdentityPatch, NandPermissionPatch
+                            if (args[i].ToLower() == "packwad")
                             {
                                 nusForm.SetPackWad(true);
                             }
-                            else if (args[i] == "localuse")
+                            else if (args[i].ToLower() == "localuse")
                             {
                                 nusForm.SetLocalUse(true);
+                            }
+                            else if (args[i].ToLower() == "truchapatch")
+                            {
+                                TruchaBugEnable = true;
+                            }
+                            else if (args[i].ToLower() == "esidentitypatch")
+                            {
+                                ESIdentityPatchEnable = true;
+                            }
+                            else if (args[i].ToLower() == "nandpermissionpatch")
+                            {
+                                NandPermissionPatchEnable = true;
+                            }
+                            else if (args[i].ToLower() == "createdecryptedcontents")
+                            {
+                                nusForm.SetCreateDecryptedContents(true);
                             }
                             break;
                     }
                 }
 
-                // Just a test download of the System Menu 4.0U
-                //myForm.titleidbox.Text = "0000000100000002";
-                //myForm.titleversion.Text = "417";
-                //myForm.packbox.Checked = true;
-                //myForm.localuse.Checked = true;
-                //myForm.radioButton1Wii.Checked = true;
-                //myForm.radioButton2DS.Checked = false;
+                // If IOS, see if user wants to patch with one of the bugs
+                if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
+                {
+                    nusForm.SetPatchIOS(true);
+                    if (TruchaBugEnable == true)
+                    {
+                        nusForm.SetTruchaBugEnable(true);
+                    }
+                    if (ESIdentityPatchEnable == true)
+                    {
+                        nusForm.SetEsIdentityBugEnable(true);
+                    }
+                    if (NandPermissionPatchEnable == true)
+                    {
+                        nusForm.SetNandPermissionBugEnable(true);
+                    }
+                }
 
                 // Call to get the files from server
                 try

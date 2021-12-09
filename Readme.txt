@@ -14,6 +14,14 @@ Where:
                    To get the latest version, use a "*" (without quotes)
     packwad = Optional: A wad file will be generated
     localuse = Optional: All the downloaded files will be retained locally
+    createdecryptedcontents = Optional: Create decrypted (.app) content
+        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+    truchapatch = Optional: If IOS, then apply Trucha patch
+        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+    esidentitypatch = Optional: If IOS, then apply ES Identity patch
+        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+    nandpermissionpatch = Optional: If IOS, then apply NAND Permission patch
+        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
 
 At this time <packwad> and <localuse> are default to ON, so you don't even need to specify it. 
 If for some reason, you need these defaults to OFF, PM me in GBATemp.net, and I'll change it.
@@ -23,18 +31,18 @@ Credits: All credits go to WB3000 for the original software.
 
 Requirements:
 
-    * You will need MS .NET Framework 2.0 to run this thing
+    * You will need MS .NET Framework 4.8 to run this thing
     * Internet connection
 
 Included:
 
     * Binary nusd.exe
+    * The original "NUSdownloader.exe" from WB3000 - Required to be in the same folder as nusd.exe
     * Modified source with Visual Studio projects files and such
-    * The original "NUSdownloader_v1.exe" from WB3000
-    * Sample batch file
+    * Sample batch file - This is what I used to test
 
 Warnings:
-    * I've only tested this on a 32 bit Windows XP machine, not Vista
+    * I've only tested this on a Windows10 machine
 
 Disclaimer:
     * I'm not responsible for any brick that may result from using this tool.

@@ -3088,5 +3088,51 @@ namespace NUS_Downloader
         {
             serverLbl.Text = serverText;
         }
+
+        public void SetCreateDecryptedContents (bool cryptedContent)
+        {
+            decryptbox.Checked = cryptedContent;
+        }
+
+        public void SetPatchIOS(bool patchIOS)
+        {
+            iosPatchCheckbox.Checked = patchIOS;
+        }
+
+        
+        public void SetTruchaBugEnable (bool truchaEnable)
+        {
+            for (int i = 0; i < iosPatchesListBox.Items.Count; i++)
+            {
+                if (iosPatchesListBox.Items[i].ToString().Equals("Trucha bug"))
+                {
+                    iosPatchesListBox.SetItemChecked(i, true);
+                }
+            }
+        }
+
+        public void SetEsIdentityBugEnable(bool esIdentityEnable)
+        {
+            // ES_Identify
+            for (int i = 0; i < iosPatchesListBox.Items.Count; i++)
+            {
+                if (iosPatchesListBox.Items[i].ToString().Equals("ES_Identify"))
+                {
+                    iosPatchesListBox.SetItemChecked(i, true);
+                }
+            }
+        }
+
+        public void SetNandPermissionBugEnable(bool nandPermissionEnable)
+        {
+            // NAND permissions
+            for (int i = 0; i < iosPatchesListBox.Items.Count; i++)
+            {
+                if (iosPatchesListBox.Items[i].ToString().Equals("NAND permissions"))
+                {
+                    iosPatchesListBox.SetItemChecked(i, true);
+                }
+            }
+        }
     }
 }
