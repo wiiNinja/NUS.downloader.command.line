@@ -6,7 +6,7 @@ So I whipped out this version, based on the GUI v1 from WB3000. Nothing to write
 I've tested several titles by comparing the outputs from this tool, and the outputs from WB3000's tool. 
 Both results are the same.
 
-Usage: nusd <titleID> <titleVersion | *> [packwad] [localuse]
+Usage: nusd <titleID> <titleVersion | *> [packwad] [localuse] [createdecryptedcontents] [truchapatch] [esidentitypatch] [nandpermissionpatch]
 
 Where: 
     titleID = The ID of the title to be downloaded
@@ -15,13 +15,17 @@ Where:
     packwad = Optional: A wad file will be generated
     localuse = Optional: All the downloaded files will be retained locally
     createdecryptedcontents = Optional: Create decrypted (.app) content
-        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+        * I've only verified the creation of, but not the validity of the results. 
+        * Content is same as the original GUI version.
     truchapatch = Optional: If IOS, then apply Trucha patch
-        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+        * I've only verified the creation of, but not the validity of the results. 
+        * Content is same as the original GUI version.
     esidentitypatch = Optional: If IOS, then apply ES Identity patch
-        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+        * I've only verified the creation of, but not the validity of the results.
+        * Content is same as the original GUI version.
     nandpermissionpatch = Optional: If IOS, then apply NAND Permission patch
-        * I've only verified the creation of, but not the validity of the results. Content is same as the original GUI version.
+        * I've only verified the creation of, but not the validity of the results.
+        * Content is same as the original GUI version.
 
 At this time <packwad> and <localuse> are default to ON, so you don't even need to specify it. 
 If for some reason, you need these defaults to OFF, PM me in GBATemp.net, and I'll change it.
@@ -51,6 +55,7 @@ Revision History:
     v0.1b - 5/5/2009 - Initial version
     v0.2 - 5/6/2009 - Added option to retrieve the latest version of a title
     v0.3 - 12/08/2021 - Retrieved the latest version of NUS Downloader from Google Code that was already archived.
+                        Provided additional command-line arguments per v19 of NUS Downloader.
 
 -------- 0 ---------
 wiiNinja
