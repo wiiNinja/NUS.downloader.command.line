@@ -6,12 +6,13 @@ So I whipped out this version, based on the GUI v1 from WB3000. Nothing to write
 I've tested several titles by comparing the outputs from this tool, and the outputs from WB3000's tool. 
 Both results are the same.
 
-Usage: nusd <titleID> <titleVersion | *> [packwad] [localuse] [createdecryptedcontents] [truchapatch] [esidentitypatch] [nandpermissionpatch]
+Usage: nusd <titleID> <titleVersion | *> [option] [option] ... [option]
 
 Where: 
     titleID = The ID of the title to be downloaded
     titleVersion = The version of the title to be downloaded
                    To get the latest version, use a "*" (without quotes)
+[option] can be any of the following:
     packwad = Optional: A wad file will be generated
     localuse = Optional: All the downloaded files will be retained locally
     createdecryptedcontents = Optional: Create decrypted (.app) content
@@ -27,7 +28,7 @@ Where:
         * I've only verified the creation of, but not the validity of the results.
         * Content is same as the original GUI version.
 
-At this time <packwad> and <localuse> are default to ON, so you don't even need to specify it. 
+<packwad> and <localuse> are defaulted to ON to make it easy for people.
 If for some reason, you need these defaults to OFF, PM me in GBATemp.net, and I'll change it.
 
 Credits: All credits go to WB3000 for the original software. 

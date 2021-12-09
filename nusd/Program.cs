@@ -18,7 +18,7 @@ namespace nusd
             NUS_Downloader.Form1 nusForm = new NUS_Downloader.Form1();
 
             // Initialize the checkboxes and radio boxes
-            nusForm.SetPackWad(false);
+            nusForm.SetPackWad(true);
             nusForm.SetLocalUse(true);
             nusForm.SetKeepEncryptedContent(true);
             nusForm.SetCreateDecryptedContents(false);
@@ -30,11 +30,12 @@ namespace nusd
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage:");
-                Console.WriteLine("    nusd <titleID> <titleVersion | *> [packwad] [localuse]");
+                Console.WriteLine("    nusd <titleID> <titleVersion | *> [option] [option] ... [option]");
                 Console.WriteLine("\nWhere:");
                 Console.WriteLine("    titleID = The ID of the title to be downloaded");
                 Console.WriteLine("    titleVersion = The version of the title to be downloaded");
                 Console.WriteLine("              Use \"*\" (no quotes) to get the latest version");
+                Console.WriteLine("\n[option] can be any of the following:");
                 Console.WriteLine("    packwad = Optional: A wad file will be generated");
                 Console.WriteLine("    localuse = Optional: All the downloaded files will be retained locally");
                 Console.WriteLine("    createdecryptedcontents = Optional: Create decrypted (.app) contents");
