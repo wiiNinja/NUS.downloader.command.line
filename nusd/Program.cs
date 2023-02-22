@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace nusd
 {
@@ -65,6 +66,12 @@ namespace nusd
                             else
                             {
                                 nusForm.SetTileVersion(args[i]);
+                            }
+                            break;
+                        case 2:
+                            if (args[i].Contains("http"))
+                            {
+                                // nusForm.nusfileurl = args[i];
                             }
                             break;
 

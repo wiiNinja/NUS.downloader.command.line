@@ -225,6 +225,7 @@ namespace NUS_Downloader
             else
                 statusbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7);
             statusbox.SelectionColor = statusbox.ForeColor = normalcolor;
+            /*
             if (version.StartsWith("SVN"))
             {
                 WriteStatus("!!!!! THIS IS A DEBUG BUILD FROM SVN !!!!!");
@@ -232,6 +233,7 @@ namespace NUS_Downloader
                 WriteStatus("Devs: REMEMBER TO CHANGE TO THE RELEASE CONFIGURATION AND CHANGE VERSION NUMBER BEFORE BUILDING!");
                 WriteStatus("\r\n");
             }
+            */
 
             // Database BackgroundWorker
             this.databaseWorker = new BackgroundWorker();
