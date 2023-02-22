@@ -8,7 +8,7 @@ namespace nusd
 {
     class Program
     {
-        const string NUSD_VERSION = "v0.3";
+        const string NUSD_VERSION = "v0.4";
 
         static void Main(string[] args)
         {
