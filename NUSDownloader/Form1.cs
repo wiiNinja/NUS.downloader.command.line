@@ -45,7 +45,7 @@ namespace NUS_Downloader
 
 #if DEBUG
         private static string svnversion = "$Rev: 121 $";
-        private static string version = String.Format("SVN r{0}", ((int.Parse(svnversion.Replace("$"+"R"+"e"+"v"+": ","").Replace(" "+"$","")))+1));
+        private static string version = String.Format("r{0}", ((int.Parse(svnversion.Replace("$"+"R"+"e"+"v"+": ","").Replace(" "+"$","")))+1));
 #else
         // TODO: Always remember to change version!
         private string version = "v1.9";
