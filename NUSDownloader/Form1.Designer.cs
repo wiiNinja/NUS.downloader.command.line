@@ -89,6 +89,7 @@ namespace NUS_Downloader
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.localTicketInventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutNUSDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proxyBox = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -131,7 +132,6 @@ namespace NUS_Downloader
             this.titleidbox = new wmgCMS.WaterMarkTextBox();
             this.dlprogress = new wyDay.Controls.Windows7ProgressBar();
             this.titleversion = new wmgCMS.WaterMarkTextBox();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.databaseStrip.SuspendLayout();
             this.extrasStrip.SuspendLayout();
             this.proxyBox.SuspendLayout();
@@ -146,7 +146,7 @@ namespace NUS_Downloader
             this.Extrasbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Extrasbtn.Location = new System.Drawing.Point(194, 5);
             this.Extrasbtn.Name = "Extrasbtn";
-            this.Extrasbtn.Size = new System.Drawing.Size(68, 27);
+            this.Extrasbtn.Size = new System.Drawing.Size(85, 27);
             this.Extrasbtn.TabIndex = 2;
             this.Extrasbtn.Text = "Extras...";
             this.Extrasbtn.UseVisualStyleBackColor = true;
@@ -157,7 +157,7 @@ namespace NUS_Downloader
             this.downloadstartbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.downloadstartbtn.Location = new System.Drawing.Point(12, 64);
             this.downloadstartbtn.Name = "downloadstartbtn";
-            this.downloadstartbtn.Size = new System.Drawing.Size(250, 25);
+            this.downloadstartbtn.Size = new System.Drawing.Size(267, 25);
             this.downloadstartbtn.TabIndex = 5;
             this.downloadstartbtn.Text = "Start NUS Download!";
             this.downloadstartbtn.UseVisualStyleBackColor = true;
@@ -171,7 +171,7 @@ namespace NUS_Downloader
             this.statusbox.Name = "statusbox";
             this.statusbox.ReadOnly = true;
             this.statusbox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.statusbox.Size = new System.Drawing.Size(252, 269);
+            this.statusbox.Size = new System.Drawing.Size(268, 269);
             this.statusbox.TabIndex = 0;
             this.statusbox.Text = "";
             // 
@@ -197,7 +197,7 @@ namespace NUS_Downloader
             this.wadnamebox.Location = new System.Drawing.Point(102, 390);
             this.wadnamebox.MaxLength = 99999;
             this.wadnamebox.Name = "wadnamebox";
-            this.wadnamebox.Size = new System.Drawing.Size(161, 20);
+            this.wadnamebox.Size = new System.Drawing.Size(177, 20);
             this.wadnamebox.TabIndex = 17;
             // 
             // databaseStrip
@@ -570,6 +570,11 @@ namespace NUS_Downloader
             this.donateToolStripMenuItem.Visible = false;
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(174, 6);
+            // 
             // aboutNUSDToolStripMenuItem
             // 
             this.aboutNUSDToolStripMenuItem.Image = global::NUS_Downloader.Properties.Resources.information;
@@ -867,7 +872,7 @@ namespace NUS_Downloader
             this.richPanel.Controls.Add(this.statusbox);
             this.richPanel.Location = new System.Drawing.Point(12, 116);
             this.richPanel.Name = "richPanel";
-            this.richPanel.Size = new System.Drawing.Size(250, 268);
+            this.richPanel.Size = new System.Drawing.Size(267, 268);
             this.richPanel.TabIndex = 56;
             // 
             // databaseButton
@@ -891,7 +896,7 @@ namespace NUS_Downloader
             this.saveaswadbtn.Enabled = false;
             this.saveaswadbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveaswadbtn.Image = global::NUS_Downloader.Properties.Resources.disk;
-            this.saveaswadbtn.Location = new System.Drawing.Point(239, 409);
+            this.saveaswadbtn.Location = new System.Drawing.Point(249, 409);
             this.saveaswadbtn.MaximumSize = new System.Drawing.Size(0, 24);
             this.saveaswadbtn.MinimumSize = new System.Drawing.Size(0, 24);
             this.saveaswadbtn.Name = "saveaswadbtn";
@@ -941,7 +946,7 @@ namespace NUS_Downloader
             this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clearButton.Image = global::NUS_Downloader.Properties.Resources.bin_closed;
             this.clearButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.clearButton.Location = new System.Drawing.Point(238, 360);
+            this.clearButton.Location = new System.Drawing.Point(248, 360);
             this.clearButton.MaximumSize = new System.Drawing.Size(0, 24);
             this.clearButton.MinimumSize = new System.Drawing.Size(0, 24);
             this.clearButton.Name = "clearButton";
@@ -999,9 +1004,9 @@ namespace NUS_Downloader
             // serverLbl
             // 
             this.serverLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.serverLbl.Location = new System.Drawing.Point(233, 38);
+            this.serverLbl.Location = new System.Drawing.Point(236, 39);
             this.serverLbl.Name = "serverLbl";
-            this.serverLbl.Size = new System.Drawing.Size(29, 20);
+            this.serverLbl.Size = new System.Drawing.Size(43, 20);
             this.serverLbl.TabIndex = 57;
             this.serverLbl.Text = "Wii";
             this.serverLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1028,7 +1033,7 @@ namespace NUS_Downloader
             this.dlprogress.ContainerControl = this;
             this.dlprogress.Location = new System.Drawing.Point(12, 95);
             this.dlprogress.Name = "dlprogress";
-            this.dlprogress.Size = new System.Drawing.Size(250, 15);
+            this.dlprogress.Size = new System.Drawing.Size(267, 15);
             this.dlprogress.TabIndex = 47;
             // 
             // titleversion
@@ -1044,15 +1049,10 @@ namespace NUS_Downloader
             this.titleversion.WaterMarkText = "Version";
             this.titleversion.TextChanged += new System.EventHandler(this.titleversion_TextChanged);
             // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(174, 6);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(274, 516);
+            this.ClientSize = new System.Drawing.Size(284, 516);
             this.Controls.Add(this.serverLbl);
             this.Controls.Add(this.iosPatchGroupBox);
             this.Controls.Add(this.ProxyVerifyBox);

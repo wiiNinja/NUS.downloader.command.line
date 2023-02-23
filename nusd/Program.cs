@@ -9,14 +9,16 @@ namespace nusd
 {
     class Program
     {
-        const string NUSD_VERSION = "v0.4";
+        const string NUSD_VERSION = "v0.5";
 
         static void Main(string[] args)
         {
             bool TruchaBugEnable = false;
             bool ESIdentityPatchEnable = false;
             bool NandPermissionPatchEnable = false;
+            String CustomNusUrl = "";
             NUS_Downloader.Form1 nusForm = new NUS_Downloader.Form1();
+            bool successStatus = true;
 
             // Initialize the checkboxes and radio boxes
             nusForm.SetPackWad(true);
@@ -35,7 +37,7 @@ namespace nusd
                 Console.WriteLine("\nWhere:");
                 Console.WriteLine("    titleID = The ID of the title to be downloaded");
                 Console.WriteLine("    titleVersion = The version of the title to be downloaded");
-                Console.WriteLine("              Use \"*\" (no quotes) to get the latest version");
+                Console.WriteLine("              Use \"*\" (without quotes) to get the latest version");
                 Console.WriteLine("\n[option] can be any of the following:");
                 Console.WriteLine("    packwad = Optional: A wad file will be generated");
                 Console.WriteLine("    localuse = Optional: All the downloaded files will be retained locally");
@@ -43,6 +45,8 @@ namespace nusd
                 Console.WriteLine("    truchapatch = Optional: Apply Trucha patch");
                 Console.WriteLine("    esidentitypatch = Optional: Apply ES Identity patch");
                 Console.WriteLine("    nandpermissionpatch = Optional: Apply NAND Permission patch");
+                Console.WriteLine("    <NUSUrl> = Optional: Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
+                Console.WriteLine("    <nusType> = Optional: Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
             }
             else
             {
@@ -66,12 +70,6 @@ namespace nusd
                             else
                             {
                                 nusForm.SetTileVersion(args[i]);
-                            }
-                            break;
-                        case 2:
-                            if (args[i].Contains("http"))
-                            {
-                                // nusForm.nusfileurl = args[i];
                             }
                             break;
 
@@ -101,39 +99,67 @@ namespace nusd
                             {
                                 nusForm.SetCreateDecryptedContents(true);
                             }
+                            else if (args[i].Contains("http:"))
+                            {
+                                // CustomNusUrl = args[i];
+                                nusForm.SetCustomNusUrl(args[i]);
+                            }
+                            else if (args[i].ToLower() == "wii")
+                            {
+                                nusForm.SetNusType("wii");
+                            }
+                            else if (args[i].ToLower() == "dsi")
+                            {
+                                nusForm.SetNusType("dsi");
+                            }
+                            else
+                            {
+                                // Invalid option
+                                // throw new InvalidProgramException($"Error: Invalid option \"{args[i]}\" was specified on the command line");
+                                Console.WriteLine ($"Error: Invalid option \"{args[i]}\" was specified on the command line");
+                                successStatus = false;
+                            }
                             break;
                     }
                 }
 
-                // If IOS, see if user wants to patch with one of the bugs
-                if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
+                if (successStatus)
                 {
-                    nusForm.SetPatchIOS(true);
-                    if (TruchaBugEnable == true)
+                    // If IOS, see if user wants to patch with one of the bugs
+                    if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
                     {
-                        nusForm.SetTruchaBugEnable(true);
+                        nusForm.SetPatchIOS(true);
+                        if (TruchaBugEnable == true)
+                        {
+                            nusForm.SetTruchaBugEnable(true);
+                        }
+                        if (ESIdentityPatchEnable == true)
+                        {
+                            nusForm.SetEsIdentityBugEnable(true);
+                        }
+                        if (NandPermissionPatchEnable == true)
+                        {
+                            nusForm.SetNandPermissionBugEnable(true);
+                        }
                     }
-                    if (ESIdentityPatchEnable == true)
-                    {
-                        nusForm.SetEsIdentityBugEnable(true);
-                    }
-                    if (NandPermissionPatchEnable == true)
-                    {
-                        nusForm.SetNandPermissionBugEnable(true);
-                    }
-                }
 
-                // Call to get the files from server
-                try
-                {
-                    nusForm.NUSDownloader_DoWork(null, null);
+                    // Call to get the files from server
+                    try
+                    {
+                        nusForm.NUSDownloader_DoWork(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"\nError encounted while downloading the title {args[0]} version {args[1]}");
+                        Console.WriteLine($"Error message: {ex.Message}");
+                        throw;
+                    }
+                    Console.WriteLine($"\nSuccessfully downloaded the title {args[0]} version {args[1]}");
                 }
-                catch (Exception ex)
+                else
                 {
-                    Console.WriteLine($"\nError encounted while downloading the title {args[0]} version {args[1]}");
-                    Console.WriteLine($"Error message: {ex.Message}");
+                    Console.WriteLine("Download failed.");
                 }
-                Console.WriteLine($"\nSuccessfully downloaded the title {args[0]} version {args[1]}");
             }
         }
     }

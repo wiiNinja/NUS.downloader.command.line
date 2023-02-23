@@ -36,9 +36,11 @@ namespace libWiiSharp
     {
         private const string WII_NUS_URL = "http://nus.cdn.shop.wii.com/ccs/download/";
         private const string DSI_NUS_URL = "http://nus.cdn.t.shop.nintendowifi.net/ccs/download/";
+        private const string RC24_NUS_URL = "http://ccs.cdn.sho.rc24.xyz/ccs/download/";
 
         private const string WII_USER_AGENT = "wii libnup/1.0";
         private const string DSI_USER_AGENT = "Opera/9.50 (Nintendo; Opera/154; U; Nintendo DS; en)";
+        //private const string RC24_USER_AGENT = "rc24-TBD";
 
         private string nusUrl = WII_NUS_URL;
         private WebClient wcNus = new WebClient();
@@ -96,10 +98,31 @@ namespace libWiiSharp
             wcNus.Headers.Add("User-Agent", WII_USER_AGENT);
         }
 
+        public void SetToRC24Server()
+        {
+            Console.WriteLine($"URL: {RC24_NUS_URL}");
+            nusUrl = RC24_NUS_URL;
+            //wcNus.Headers.Add("User-Agent", RC24_USER_AGENT);
+            wcNus.Headers.Add("User-Agent", WII_USER_AGENT);
+        }
+
         public void SetToDSiServer()
         {
             nusUrl = DSI_NUS_URL;
             wcNus.Headers.Add("User-Agent", DSI_USER_AGENT);
+        }
+
+        public void SetCustomServer (String customUrl, bool isWii)
+        {
+            nusUrl = customUrl;
+            if (isWii)
+            {
+                wcNus.Headers.Add("User-Agent", WII_USER_AGENT);
+            }
+            else
+            {
+                wcNus.Headers.Add("User-Agent", DSI_USER_AGENT);
+            }
         }
 
         /// <summary>

@@ -27,7 +27,6 @@ using System;
 using System.Windows.Forms;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using System.Xml;
 using System.Drawing;
 using System.Text.RegularExpressions;
@@ -38,18 +37,17 @@ using System.Diagnostics;
 
 namespace NUS_Downloader
 {
-    //partial class Form1 : Form
     public partial class Form1 : Form
     {
         private readonly string CURRENT_DIR = Directory.GetCurrentDirectory();
 
-#if DEBUG
-        private static string svnversion = "$Rev: 121 $";
-        private static string version = String.Format("r{0}", ((int.Parse(svnversion.Replace("$"+"R"+"e"+"v"+": ","").Replace(" "+"$","")))+1));
-#else
+//#if DEBUG
+//        private static string svnversion = "$Rev: 121 $";
+//        private static string version = String.Format("r{0}", ((int.Parse(svnversion.Replace("$"+"R"+"e"+"v"+": ","").Replace(" "+"$","")))+1));
+//#else
         // TODO: Always remember to change version!
         private string version = "v1.9";
-#endif
+//#endif
 
         // Cross-thread Windows Formsing
         private delegate void AddToolStripItemToStripCallback(
@@ -61,6 +59,8 @@ namespace NUS_Downloader
         private delegate string OfficialWADNamingCallback(string whut);
 
         private string WAD_Saveas_Filename;
+
+        private string CustomNusUrl;
 
         // TODO: OOP scripting
         /*private string script_filename;
@@ -96,6 +96,8 @@ namespace NUS_Downloader
             GUISetup();
 
             BootChecks();
+
+            CustomNusUrl = "";
         }
 
         // CLI Mode
@@ -697,10 +699,25 @@ namespace NUS_Downloader
             nusClient.ContinueWithoutTicket = true;
 
             // Server
-            if (serverLbl.Text == "Wii")
-                nusClient.SetToWiiServer();
-            else if (serverLbl.Text == "DSi")
-                nusClient.SetToDSiServer();
+            if (CustomNusUrl == "")
+            {
+                if (serverLbl.Text == "Wii")
+                {
+                    nusClient.SetToWiiServer();
+                }
+                else if (serverLbl.Text == "DSi")
+                {
+                    nusClient.SetToDSiServer();
+                }
+                else if (serverLbl.Text == "RC24")
+                {
+                    nusClient.SetToRC24Server();
+                }
+            }
+            else
+            {
+                nusClient.SetCustomServer(CustomNusUrl, serverLbl.Text == "Wii");
+            }
 
             // Events
             nusClient.Debug += new EventHandler<libWiiSharp.MessageEventArgs>(nusClient_Debug);
@@ -724,9 +741,12 @@ namespace NUS_Downloader
             catch (Exception ex)
             {
                 WriteStatus("Download failed: \"" + ex.Message + " ):\"", errorcolor);
+                throw;
             }
 
-            if (iosPatchCheckbox.Checked == true) { // Apply patches then...
+            if (iosPatchCheckbox.Checked == true) 
+            { 
+                // Apply patches then...
                 bool didpatch = false;
                 int noofpatches = 0;
                 string appendpatch = "";
@@ -3031,7 +3051,7 @@ namespace NUS_Downloader
 
         private void serverLbl_TextChanged(object sender, EventArgs e)
         {
-            if (serverLbl.Text == "Wii")
+            if ((serverLbl.Text == "Wii") || (serverLbl.Text == "RC24"))
             {
                 // Can pack WADs / Decrypt
                 packbox.Enabled = true;
@@ -3135,6 +3155,32 @@ namespace NUS_Downloader
                     iosPatchesListBox.SetItemChecked(i, true);
                 }
             }
+        }
+
+        public void SetNusType (String nusType)
+        {
+            if (nusType.ToLower() == "wii")
+            {
+                serverLbl.Text = "Wii";
+            }
+            else if (nusType.ToLower() == "dsi")
+            {
+                serverLbl.Text = "DSi";
+            }
+            else if (nusType.ToLower() == "rc24")
+            {
+                serverLbl.Text = "RC24";
+            }
+            else
+            {
+                // TBD if a custom type should be implemented here
+                serverLbl.Text = "Wii";
+            }
+        }
+
+        public void SetCustomNusUrl (String customNusUrl)
+        {
+            CustomNusUrl = customNusUrl;
         }
     }
 }
