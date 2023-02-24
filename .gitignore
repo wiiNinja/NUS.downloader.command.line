@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 compiled.outputs/scripts/
 compiled.outputs/titles/
+
+scripts/
+titles/
+
+#nusd/Properties/
+#NUSDownloader/Properties/

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
+using NUS_Downloader;
 
 namespace nusd
 {
@@ -16,8 +12,7 @@ namespace nusd
             bool TruchaBugEnable = false;
             bool ESIdentityPatchEnable = false;
             bool NandPermissionPatchEnable = false;
-            String CustomNusUrl = "";
-            NUS_Downloader.Form1 nusForm = new NUS_Downloader.Form1();
+            Form1 nusForm = new Form1();
             bool successStatus = true;
 
             // Initialize the checkboxes and radio boxes
@@ -101,7 +96,6 @@ namespace nusd
                             }
                             else if (args[i].Contains("http:"))
                             {
-                                // CustomNusUrl = args[i];
                                 nusForm.SetCustomNusUrl(args[i]);
                             }
                             else if (args[i].ToLower() == "wii")
