@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using NUS_Downloader;
-using nusd;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -378,12 +377,24 @@ namespace UnitTests
         [TestCase("000000010000000b", "10", new string[] { "http://nus.cdn.t.shop.nintendowifi.net/ccs/download/", "dsi" })]
         [TestCase("000000010000000b", "10", new string[] { "http://ccs.cdn.sho.rc24.xyz/ccs/download/", "wii" })]
         [TestCase("0000000100000026", "3610", new string[] { "packwad", "truchapatch", "esidentitypatch", "nandpermissionpatch" })]
+        [TestCase("000000010000001f", "1040", new string[] { "http://ccs.cdn.sho.rc24.xyz/ccs/download/" })]
+        [TestCase("0000000100000021", "1040", new string[] { "http://nus.cdn.shop.wii.com/ccs/download/" })]
+        [TestCase("0000000100000022", "1039", new string[] { "http://ccs.cdn.sho.rc24.xyz/ccs/download/" })]
+        [TestCase("0000000100000023", "1040", new string[] { "http://nus.cdn.shop.wii.com/ccs/download/" })]
+        [TestCase("000000010000000b", "*", new string[] { "packwad", "nandpermissionpatch" })]
+        [TestCase("000000010000003d", "*", new string[] { "packwad", "esidentitypatch" })]
+        [TestCase("0000000100000021", "*", new string[] { "packwad", "truchapatch", "http://ccs.cdn.sho.rc24.xyz/ccs/download/" })]
+        [TestCase("000000010000000b", "*", new string[] { "packwad", "nandpermissionpatch", "esidentitypatch" })]
+        [TestCase("000000010000003d", "*", new string[] { "packwad", "esidentitypatch" })]
+        [TestCase("0000000100000021", "*", new string[] { "packwad", "truchapatch", "esidentitypatch", "http://nus.cdn.shop.wii.com/ccs/download/" })]
 
         // These should fail
         [TestCase("000000010000000b", "10", new string[] { "http://nus.cdn.shop99.wii.com/ccs/download/" }, false)]
         [TestCase("0000000100000002", "417", new string[] { "packwaddle", "truchapatch" }, false)]
         [TestCase("000000010000000b", "10", new string[] { "http://ccs.cdn.shogun.rc24.xyz/ccs/download/", "wii" }, false)]
         [TestCase("0000000100000037", "4633", new string[] { "wiiU" }, false)]
+        [TestCase("000000010000001f1", "1040", null, false)]  // Too long
+        [TestCase("000000010000001", "1040", null, false)]    // Too short
         [NonParallelizable]
         public void TestCliInterface(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
         {
@@ -407,10 +418,10 @@ namespace UnitTests
                 }
             }
 
-            // Run the utility ins a cmd
+            // Run the CLI util
             string output = RunCmd(nusCmd);
 
-            // Check for existence of folder and wad. 000000010000000b-NUS-v10.wad
+            // Check for existence of folder and/or wad.
             // Note that can't really check for the latest version, so only check for folder in that case
             if (CheckOutput( buildWad,  titleId,  titleVersion) != resultExists)
             {
