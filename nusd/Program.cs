@@ -3,11 +3,11 @@ using NUS_Downloader;
 
 namespace nusd
 {
-    class Program
+    public class Program
     {
         const string NUSD_VERSION = "v0.6";
 
-        static void Main(string[] args)
+        static public void Main(string[] args)
         {
             bool TruchaBugEnable = false;
             bool ESIdentityPatchEnable = false;
