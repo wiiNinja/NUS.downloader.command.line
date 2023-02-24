@@ -27,6 +27,9 @@ Where:
     nandpermissionpatch = Optional: If IOS, then apply NAND Permission patch
         * I've only verified the creation of, but not the validity of the results.
         * Content is same as the original GUI version.
+    wii = Default NUS server (automatically selects the first online server between official wii server and RC24)
+    dsi = Use DSI server
+    <Custom Server URL> = Optional - Can specify an alternate server URL to use instead of the built-in URLs
 
 <packwad> and <localuse> are defaulted to ON to make it easy for people.
 If for some reason, you need these defaults to OFF, PM me in GBATemp.net, and I'll change it.
@@ -44,20 +47,21 @@ Included:
     * Binary nusd.exe
     * The original "NUSdownloader.exe" from WB3000 - Required to be in the same folder as nusd.exe
     * Modified source with Visual Studio projects files and such
-    * Sample batch file - This is what I used to test
+    * Sample batch files - These are what I used to test
 
 Warnings:
-    * I've only tested this on a Windows10 machine
+    * I've only tested this on a Windows11 machine
 
 Disclaimer:
-    * I'm not responsible for any brick that may result from using this tool.
+    * I'm not responsible for any bricks that may result from using this tool.
 
 Revision History:
     v0.1b - 5/5/2009 - Initial version
     v0.2 - 5/6/2009 - Added option to retrieve the latest version of a title
     v0.3 - 12/08/2021 - Retrieved the latest version of NUS Downloader from Google Code that was already archived.
                         Provided additional command-line arguments per v1.9 of NUS Downloader.
-    v0.4 - 2/22/2023 - Recompiled using .NET 3.5 instead of .NET 4.8
+    v0.4 - 2/22/2023 - Recompiled using .NET 3.5 instead of .NET 4.8 (Use branch dotnet3.5)
+    v0.6 - 2/24/2023 - Additional wii/dsi options, custom URL override, and use RC24 server as alternate. (Use branch dotnet3.5)
 
 -------- 0 ---------
 wiiNinja

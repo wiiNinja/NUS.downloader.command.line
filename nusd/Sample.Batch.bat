@@ -42,4 +42,15 @@ nusd 0000000100000100 * packwad
 nusd 0000000100000035 4113 packwad truchapatch
 nusd 0000000100000026 3610 packwad truchapatch esidentitypatch nandpermissionpatch
 
+nusd 000000010000000b 10 wii
+nusd 000000010000000b 10 rc24
+nusd 000000010000000b 10 dsi
+
+nusd 000000010000000b 10 http://nus.cdn.shop.wii.com/ccs/download/
+nusd 000000010000000b 10 http://nus.cdn.t.shop.nintendowifi.net/ccs/download/ dsi
+nusd 000000010000000b 10 http://ccs.cdn.sho.rc24.xyz/ccs/download/ wii
+
+rem should fail
+rem nusd 000000010000000b 10 http://ccs.cdn.sho.rc24.xyz/ccs_bogus/download/ wii
+
 pause

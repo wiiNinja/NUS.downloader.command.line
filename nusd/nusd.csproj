@@ -91,10 +91,7 @@
     <None Include="Sample.Batch.Bogus.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Sample.Batch.File.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Sample.Batch.File2.bat">
+    <None Include="Sample.Batch.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

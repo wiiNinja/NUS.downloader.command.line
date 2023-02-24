@@ -703,19 +703,18 @@ namespace NUS_Downloader
             {
                 if (serverLbl.Text == "Wii")
                 {
+                    // If user wants a wii server, select first one that has connectivity
                     nusClient.SetToWiiServer();
+                    // nusClient.SetToRC24Server();
                 }
-                else if (serverLbl.Text == "DSi")
+                else // if (serverLbl.Text == "DSi")
                 {
                     nusClient.SetToDSiServer();
-                }
-                else if (serverLbl.Text == "RC24")
-                {
-                    nusClient.SetToRC24Server();
                 }
             }
             else
             {
+                // This is a custom URL override. Just use it
                 nusClient.SetCustomServer(CustomNusUrl, serverLbl.Text == "Wii");
             }
 
@@ -3167,13 +3166,12 @@ namespace NUS_Downloader
             {
                 serverLbl.Text = "DSi";
             }
-            else if (nusType.ToLower() == "rc24")
-            {
-                serverLbl.Text = "RC24";
-            }
+            //else if (nusType.ToLower() == "rc24")
+            //{
+            //    serverLbl.Text = "RC24";
+            //}
             else
             {
-                // TBD if a custom type should be implemented here
                 serverLbl.Text = "Wii";
             }
         }

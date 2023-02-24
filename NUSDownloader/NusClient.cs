@@ -34,13 +34,14 @@ namespace libWiiSharp
 
     public class NusClient : IDisposable
     {
+        // Wii servers
         private const string WII_NUS_URL = "http://nus.cdn.shop.wii.com/ccs/download/";
-        private const string DSI_NUS_URL = "http://nus.cdn.t.shop.nintendowifi.net/ccs/download/";
         private const string RC24_NUS_URL = "http://ccs.cdn.sho.rc24.xyz/ccs/download/";
+        // DS Server
+        private const string DSI_NUS_URL = "http://nus.cdn.t.shop.nintendowifi.net/ccs/download/";
 
         private const string WII_USER_AGENT = "wii libnup/1.0";
         private const string DSI_USER_AGENT = "Opera/9.50 (Nintendo; Opera/154; U; Nintendo DS; en)";
-        //private const string RC24_USER_AGENT = "rc24-TBD";
 
         private string nusUrl = WII_NUS_URL;
         private WebClient wcNus = new WebClient();
@@ -94,7 +95,7 @@ namespace libWiiSharp
 
         public void SetToWiiServer()
         {
-            nusUrl = WII_NUS_URL;
+            nusUrl = GetActiveWiiServer(); //  WII_NUS_URL;
             wcNus.Headers.Add("User-Agent", WII_USER_AGENT);
         }
 
@@ -102,7 +103,6 @@ namespace libWiiSharp
         {
             Console.WriteLine($"URL: {RC24_NUS_URL}");
             nusUrl = RC24_NUS_URL;
-            //wcNus.Headers.Add("User-Agent", RC24_USER_AGENT);
             wcNus.Headers.Add("User-Agent", WII_USER_AGENT);
         }
 
@@ -123,6 +123,40 @@ namespace libWiiSharp
             {
                 wcNus.Headers.Add("User-Agent", DSI_USER_AGENT);
             }
+        }
+
+        // Check if either the official or RC24 server is online
+        private string GetActiveWiiServer()
+        {
+            WebClient tmpWc = new WebClient();
+
+            // Wii Endpoint
+            try
+            {
+                tmpWc.DownloadData(WII_NUS_URL);
+
+            }
+            catch (WebException e)
+            {
+                if (e.Message.Split('(')[1].Split(')')[0] == "401")
+                {
+                    return WII_NUS_URL;
+                }
+            }
+
+            // RC24 Endpoint
+            try
+            {
+                tmpWc.DownloadData(RC24_NUS_URL);
+            }
+            catch (WebException e)
+            {
+                if (e.Message.Split('(')[1].Split(')')[0] == "401")
+                {
+                    return RC24_NUS_URL;
+                }
+            }
+            throw new Exception("Unable to find any online NUS servers!");
         }
 
         /// <summary>
