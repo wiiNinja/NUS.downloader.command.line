@@ -385,7 +385,7 @@ namespace UnitTests
         [TestCase("000000010000000b", "10", new string[] { "http://ccs.cdn.shogun.rc24.xyz/ccs/download/", "wii" }, false)]
         [TestCase("0000000100000037", "4633", new string[] { "wiiU" }, false)]
         [NonParallelizable]
-        public void TestValidArgs(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
+        public void TestCliInterface(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
         {
             bool buildWad = false;
 
