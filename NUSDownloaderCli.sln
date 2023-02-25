@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUSDownloaderCli", "NUSDown
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nusd", "nusd\nusd.csproj", "{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C67D0B50-ADF3-4EBA-8F07-3A24C47054DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C67D0B50-ADF3-4EBA-8F07-3A24C47054DB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0} = {65B5C853-8FBD-42B1-AF6E-E514FE6DE3D0}
 		{DB1289FA-BA83-408F-A576-326E5EC4CC6D} = {DB1289FA-BA83-408F-A576-326E5EC4CC6D}
@@ -43,8 +43,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {6AFD065A-C224-4F37-9BD8-25E4208A45FE}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

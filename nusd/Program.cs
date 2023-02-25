@@ -24,7 +24,8 @@ namespace nusd
             nusForm.SetServerButtonText("Wii");
             nusForm.SetTruchaBugEnable(true);
 
-            Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code v1.9 by WB3000");
+            Console.WriteLine("\n\n---------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code {nusForm.GetVersion()} by WB3000");
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage:");
@@ -34,20 +35,21 @@ namespace nusd
                 Console.WriteLine("    titleVersion = The version of the title to be downloaded");
                 Console.WriteLine("              Use \"*\" (without quotes) to get the latest version");
                 Console.WriteLine("\n[option] can be any of the following:");
-                Console.WriteLine("    packwad = Optional: A wad file will be generated");
-                Console.WriteLine("    localuse = Optional: All the downloaded files will be retained locally");
-                Console.WriteLine("    createdecryptedcontents = Optional: Create decrypted (.app) contents");
-                Console.WriteLine("    truchapatch = Optional: Apply Trucha patch");
-                Console.WriteLine("    esidentitypatch = Optional: Apply ES Identity patch");
-                Console.WriteLine("    nandpermissionpatch = Optional: Apply NAND Permission patch");
-                Console.WriteLine("    <NUSUrl> = Optional: Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
-                Console.WriteLine("    <nusType> = Optional: Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
+                Console.WriteLine("    packwad = A wad file will be generated when appropriate");
+                Console.WriteLine("    localuse = All the downloaded files will be retained locally");
+                Console.WriteLine("    createdecryptedcontents = Create decrypted (.app) contents");
+                Console.WriteLine("    truchapatch = Apply Trucha patch to IOS");
+                Console.WriteLine("    esidentitypatch = Apply ES Identity patch to IOS");
+                Console.WriteLine("    nandpermissionpatch = Apply NAND Permission patch to IOS");
+                Console.WriteLine("    <NUSUrl> = Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
+                Console.WriteLine("    <nusType> = Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
             }
             else
             {
+                string commandArgs = "";
                 for (int i = 0; i < args.Length; i++)
                 {
-                    Console.WriteLine("{0}", args[i]);
+                    commandArgs += $" {args[i]}";
                     switch (i)
                     {
                         case 0:
@@ -119,41 +121,41 @@ namespace nusd
 
                 if (successStatus)
                 {
-                    // If IOS, see if user wants to patch with one of the bugs
+                    // If IOS, see if user wants to patch with one or more of the bugs
                     if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
                     {
                         nusForm.SetPatchIOS(true);
-                        if (TruchaBugEnable == true)
-                        {
-                            nusForm.SetTruchaBugEnable(true);
-                        }
-                        if (ESIdentityPatchEnable == true)
-                        {
-                            nusForm.SetEsIdentityBugEnable(true);
-                        }
-                        if (NandPermissionPatchEnable == true)
-                        {
-                            nusForm.SetNandPermissionBugEnable(true);
-                        }
                     }
+                    nusForm.SetTruchaBugEnable(TruchaBugEnable);
+                    nusForm.SetEsIdentityBugEnable(ESIdentityPatchEnable);
+                    nusForm.SetNandPermissionBugEnable(NandPermissionPatchEnable);
 
-                    // Call to get the files from server
+                    // For debugging/verifying
+                    //bool[] checkList = nusForm.GetPachesEnableList();
+
+                    // Get the files from the server
                     try
                     {
+                        Console.WriteLine($"Downloading using arguments: {commandArgs}");
                         nusForm.NUSDownloader_DoWork(null, null);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"\nError encounted while downloading the title {args[0]} version {args[1]}");
-                        Console.WriteLine($"Error message: {ex.Message}");
-                        throw;
+                        Console.WriteLine($"Error encounted while downloading with args: {commandArgs}");
+                        Console.WriteLine($"    Message: {ex.Message}");
+                        successStatus = false;
                     }
-                    Console.WriteLine($"\nSuccessfully downloaded the title {args[0]} version {args[1]}");
+                    
+                }
+                if (successStatus)
+                {
+                    Console.WriteLine($"Successfully downloaded the contents with args: {commandArgs}");
                 }
                 else
                 {
-                    Console.WriteLine("Download failed.");
+                    Console.WriteLine($"Download failed using args: {commandArgs}");
                 }
+                Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
             }
         }
     }

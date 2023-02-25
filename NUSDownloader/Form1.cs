@@ -41,13 +41,14 @@ namespace NUS_Downloader
     {
         private readonly string CURRENT_DIR = Directory.GetCurrentDirectory();
 
-//#if DEBUG
-//        private static string svnversion = "$Rev: 121 $";
-//        private static string version = String.Format("r{0}", ((int.Parse(svnversion.Replace("$"+"R"+"e"+"v"+": ","").Replace(" "+"$","")))+1));
-//#else
+#if _DEBUG
+        private static string svnversion = "$Rev: 121 $";
+        private static string version = String.Format("r{0}", ((int.Parse(svnversion.Replace("$"+"R"+"e"+"v"+": ","").Replace(" "+"$","")))+1));
+#else
         // TODO: Always remember to change version!
         private string version = "v1.9";
-//#endif
+#endif
+        const string NUSD_VERSION = "v0.6";
 
         // Cross-thread Windows Formsing
         private delegate void AddToolStripItemToStripCallback(
@@ -100,6 +101,11 @@ namespace NUS_Downloader
             CustomNusUrl = "";
         }
 
+        public string GetVersion ()
+        {
+            return version;
+        }
+
         // CLI Mode
         public Form1(string[] args)
         {
@@ -120,7 +126,7 @@ namespace NUS_Downloader
                 scripter.DoWork += new DoWorkEventHandler(RunScriptBg);
                 scripter.RunWorkerAsync(script_content);
             }
-            else if (args.Length >= 2)
+            else if (args.Length > 0)
             {
                 Debug.WriteLine("Running in command line mode...");
                 RunCommandMode(args);
@@ -131,86 +137,6 @@ namespace NUS_Downloader
             {
                 BootChecks();
             }           
-        }
-
-        private void RunCommandMode(string[] args)
-        {
-            // CLI mode, inspired and taken from wiiNinja's mod.
-
-            // Initialize the checkboxes and radio boxes
-            packbox.Checked = false;  // Create wad - default OFF
-            localuse.Checked = true; // Use local content if already downloaded - default ON
-            decryptbox.Checked = false;
-            keepenccontents.Checked = false;
-            //consoleCBox.SelectedIndex = 0; // 0 is Wii, 1 is DS
-
-            // Clear 3 items in ios patches list. This feature is not supported in the command line version at this time.
-            iosPatchCheckbox.Checked = false;
-            iosPatchesListBox.SetItemChecked(0, false);
-            iosPatchesListBox.SetItemChecked(1, false);
-            iosPatchesListBox.SetItemChecked(2, false);
-
-            Console.WriteLine("NUS Downloader - v{0}", version);
-            
-            if (args.Length < 2)
-            {
-                Console.WriteLine("Usage:");
-                Console.WriteLine("    nusd <titleID> <titleVersion | *> [optionalArgs]");
-                Console.WriteLine("\nWhere:");
-                Console.WriteLine("    titleID = The ID of the title to be downloaded");
-                Console.WriteLine("    titleVersion = The version of the title to be downloaded");
-                Console.WriteLine("              Use \"*\" (no quotes) to get the latest version");
-                Console.WriteLine("    OptionalArgs:");
-                Console.WriteLine("        packwad = A wad file will be generated");
-                Console.WriteLine("        localuse = Use local contents if available");
-                Console.WriteLine("        decrypt = Create decrypted contents");
-                Console.WriteLine("        keepencrypt = Keep encrypted contents");
-            }
-            else
-            {
-                for (int i = 0; i < args.Length; i++)
-                {
-                    Console.WriteLine("{0}", args[i]);
-                    switch (i)
-                    {
-                        case 0:
-                            // First command line argument is ALWAYS the TitleID
-                            titleidbox.Text = args[i];
-                            break;
-
-                        case 1:
-                            // Second command line argument is ALWAYS the TitleVersion. 
-                            // User may specify a "*" to retrieve the latest version
-                            if (args[i] == "*")
-                                titleversion.Text = "";
-                            else
-                                titleversion.Text = args[i];
-                            break;
-
-                        default:
-                            // Any other arguments beyond the 2nd one are considered optional
-                            if (args[i] == "packwad")
-                                packbox.Checked = true;
-                            else if (args[i] == "localuse")
-                                localuse.Checked = true;
-                            else if (args[i] == "decrypt")
-                                decryptbox.Checked = true;
-                            else if (args[i] == "keepencrypt")
-                                keepenccontents.Checked = true;
-                            else
-                                Console.WriteLine("\n>>>> Warning: Unrecognized command line argument: {0}. This option is ignored...", args[i]);
-                            break;
-                    }
-                }
-
-                // Do this to set the wad file name
-                UpdatePackedName();
-
-                // Call to get the files from server
-                NUSDownloader_DoWork(null, null);
-
-                Console.WriteLine("\nSuccessfully downloaded the title {0} version {1}", args[0], args[1]);
-            }
         }
 
         private void GUISetup()
@@ -227,7 +153,7 @@ namespace NUS_Downloader
             else
                 statusbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7);
             statusbox.SelectionColor = statusbox.ForeColor = normalcolor;
-            /*
+            
             if (version.StartsWith("SVN"))
             {
                 WriteStatus("!!!!! THIS IS A DEBUG BUILD FROM SVN !!!!!");
@@ -235,7 +161,7 @@ namespace NUS_Downloader
                 WriteStatus("Devs: REMEMBER TO CHANGE TO THE RELEASE CONFIGURATION AND CHANGE VERSION NUMBER BEFORE BUILDING!");
                 WriteStatus("\r\n");
             }
-            */
+            
 
             // Database BackgroundWorker
             this.databaseWorker = new BackgroundWorker();
@@ -699,7 +625,7 @@ namespace NUS_Downloader
             nusClient.ContinueWithoutTicket = true;
 
             // Server
-            if (CustomNusUrl == "")
+            if ((CustomNusUrl == null) || (CustomNusUrl == ""))
             {
                 if (serverLbl.Text == "Wii")
                 {
@@ -3127,7 +3053,8 @@ namespace NUS_Downloader
             {
                 if (iosPatchesListBox.Items[i].ToString().Equals("Trucha bug"))
                 {
-                    iosPatchesListBox.SetItemChecked(i, true);
+                    //iosPatchesListBox.SetItemChecked(i, true);
+                    iosPatchesListBox.SetItemChecked(i, truchaEnable);
                 }
             }
         }
@@ -3139,7 +3066,8 @@ namespace NUS_Downloader
             {
                 if (iosPatchesListBox.Items[i].ToString().Equals("ES_Identify"))
                 {
-                    iosPatchesListBox.SetItemChecked(i, true);
+                    //iosPatchesListBox.SetItemChecked(i, true);
+                    iosPatchesListBox.SetItemChecked(i, esIdentityEnable);
                 }
             }
         }
@@ -3151,25 +3079,29 @@ namespace NUS_Downloader
             {
                 if (iosPatchesListBox.Items[i].ToString().Equals("NAND permissions"))
                 {
-                    iosPatchesListBox.SetItemChecked(i, true);
+                    //iosPatchesListBox.SetItemChecked(i, true);
+                    iosPatchesListBox.SetItemChecked(i, nandPermissionEnable);
                 }
             }
         }
 
+        public bool[] GetPachesEnableList ()
+        {
+            bool[] retList = new bool[iosPatchesListBox.Items.Count];
+
+            for (int i = 0; i < iosPatchesListBox.Items.Count; i++)
+            {
+                retList[i] = iosPatchesListBox.GetItemChecked(i);
+            }
+            return retList;
+        }
+
         public void SetNusType (String nusType)
         {
-            if (nusType.ToLower() == "wii")
-            {
-                serverLbl.Text = "Wii";
-            }
-            else if (nusType.ToLower() == "dsi")
+            if (nusType.ToLower() == "dsi")
             {
                 serverLbl.Text = "DSi";
             }
-            //else if (nusType.ToLower() == "rc24")
-            //{
-            //    serverLbl.Text = "RC24";
-            //}
             else
             {
                 serverLbl.Text = "Wii";
@@ -3179,6 +3111,165 @@ namespace NUS_Downloader
         public void SetCustomNusUrl (String customNusUrl)
         {
             CustomNusUrl = customNusUrl;
+        }
+
+        private void RunCommandMode(string[] args)
+        {
+            // CLI mode, inspired and taken from wiiNinja's mod.
+            bool TruchaBugEnable = false;
+            bool ESIdentityPatchEnable = false;
+            bool NandPermissionPatchEnable = false;
+            bool successStatus = true;
+
+            // Initialize the checkboxes and radio boxes
+            packbox.Checked = false;  // Create wad - default OFF
+            localuse.Checked = true; // Use local content if already downloaded - default ON
+            decryptbox.Checked = false;
+            keepenccontents.Checked = false;
+            //consoleCBox.SelectedIndex = 0; // 0 is Wii, 1 is DS
+
+            // Clear 3 items in ios patches list. This feature is not supported in the command line version at this time.
+            iosPatchCheckbox.Checked = false;
+            iosPatchesListBox.SetItemChecked(0, false);
+            iosPatchesListBox.SetItemChecked(1, false);
+            iosPatchesListBox.SetItemChecked(2, false);
+
+            Console.WriteLine("\n\n---------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code {GetVersion()} by WB3000");
+
+            //Console.WriteLine("NUS Downloader - {0}", version);
+            //Debug.WriteLine("In RunCommandMode");
+
+            if ((args.Length < 2) || (args[0].ToLower().Equals("help")))
+            {
+                Console.WriteLine("Usage:");
+                Console.WriteLine("    nusd <titleID> <titleVersion | *> [option] [option] ... [option]");
+                Console.WriteLine("\nWhere:");
+                Console.WriteLine("    titleID = The ID of the title to be downloaded");
+                Console.WriteLine("    titleVersion = The version of the title to be downloaded");
+                Console.WriteLine("              Use \"*\" (without quotes) to get the latest version");
+                Console.WriteLine("\n[option] can be any of the following:");
+                Console.WriteLine("    packwad = A wad file will be generated when appropriate");
+                Console.WriteLine("    localuse = All the downloaded files will be retained locally");
+                Console.WriteLine("    createdecryptedcontents = Create decrypted (.app) contents");
+                Console.WriteLine("    truchapatch = Apply Trucha patch to IOS");
+                Console.WriteLine("    esidentitypatch = Apply ES Identity patch to IOS");
+                Console.WriteLine("    nandpermissionpatch = Apply NAND Permission patch to IOS");
+                Console.WriteLine("    <NUSUrl> = Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
+                Console.WriteLine("    <nusType> = Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
+            }
+            else
+            {
+                string commandArgs = "";
+                for (int i = 0; i < args.Length; i++)
+                {
+                    commandArgs += $" {args[i]}";
+                    switch (i)
+                    {
+                        case 0:
+                            // First command line argument is ALWAYS the TitleID
+                            SetTileId(args[i]);
+                            break;
+
+                        case 1:
+                            // Second command line argument is ALWAYS the TitleVersion. 
+                            // User may specify a "*" to retrieve the latest version
+                            if (args[i] == "*")
+                            {
+                                SetTileVersion("");
+                            }
+                            else
+                            {
+                                SetTileVersion(args[i]);
+                            }
+                            break;
+
+                        default:
+                            // Any other arguments beyond the 2nd one are considered optional
+                            if (args[i].ToLower() == "packwad")
+                            {
+                                SetPackWad(true);
+                            }
+                            else if (args[i].ToLower() == "localuse")
+                            {
+                                SetLocalUse(true);
+                            }
+                            else if (args[i].ToLower() == "truchapatch")
+                            {
+                                TruchaBugEnable = true;
+                            }
+                            else if (args[i].ToLower() == "esidentitypatch")
+                            {
+                                ESIdentityPatchEnable = true;
+                            }
+                            else if (args[i].ToLower() == "nandpermissionpatch")
+                            {
+                                NandPermissionPatchEnable = true;
+                            }
+                            else if (args[i].ToLower() == "createdecryptedcontents")
+                            {
+                                SetCreateDecryptedContents(true);
+                            }
+                            else if (args[i].Contains("http:"))
+                            {
+                                SetCustomNusUrl(args[i]);
+                            }
+                            else if (args[i].ToLower() == "wii")
+                            {
+                                SetNusType("wii");
+                            }
+                            else if (args[i].ToLower() == "dsi")
+                            {
+                                SetNusType("dsi");
+                            }
+                            else
+                            {
+                                // Invalid option
+                                // throw new InvalidProgramException($"Error: Invalid option \"{args[i]}\" was specified on the command line");
+                                Console.WriteLine($"Error: Invalid option \"{args[i]}\" was specified on the command line");
+                                successStatus = false;
+                            }
+                            break;
+                    }
+                }
+
+                // Do this to set the wad file name
+                UpdatePackedName();
+
+                if (successStatus)
+                {
+                    // If IOS, see if user wants to patch with one or more of the bugs
+                    if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
+                    {
+                        SetPatchIOS(true);
+                    }
+                    SetTruchaBugEnable(TruchaBugEnable);
+                    SetEsIdentityBugEnable(ESIdentityPatchEnable);
+                    SetNandPermissionBugEnable(NandPermissionPatchEnable);
+
+                    // Get the files from the server
+                    try
+                    {
+                        Console.WriteLine($"Downloading using arguments: {commandArgs}");
+                        NUSDownloader_DoWork(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error encounted while downloading with args: {commandArgs}");
+                        Console.WriteLine($"    Message: {ex.Message}");
+                        successStatus = false;
+                    }
+                }
+                if (successStatus)
+                {
+                    Console.WriteLine($"Successfully downloaded the contents with args: {commandArgs}");
+                }
+                else
+                {
+                    Console.WriteLine($"Download failed using args: {commandArgs}");
+                }
+                Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
+            }
         }
     }
 }

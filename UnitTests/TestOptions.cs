@@ -12,6 +12,8 @@ namespace UnitTests
     {
         private string TestRootFolder;
         private string AssemblyFolder;
+        private const string EXECUTABLE_NAME = "nusd.exe";
+        //private const string EXECUTABLE_NAME = "NUSDownloader.exe";
 
         [SetUp]
         public void Setup()
@@ -418,7 +420,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/nusd.exe {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
@@ -458,7 +460,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/nusd.exe {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
@@ -502,7 +504,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/nusd.exe {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
