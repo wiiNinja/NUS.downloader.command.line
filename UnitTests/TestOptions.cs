@@ -139,7 +139,7 @@ namespace UnitTests
             }
         }
 
-        private string RunCmd(string nusCmd)
+        private string RunNusCliCmd(string nusCmd)
         {
             ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", $"/c {nusCmd}")
             {
@@ -176,12 +176,12 @@ namespace UnitTests
                     string folderPath = CombinePaths(TestRootFolder, paths);
                     if (!Directory.Exists(folderPath))
                     {
-                        Assert.Fail();
+                        return false;
                     }
                     string[] fileList = Directory.GetFiles(folderPath, "*.wad", SearchOption.AllDirectories);
                     if (fileList.Length < 1)
                     {
-                        Assert.Fail();
+                        return false;
                     }
                 }
                 else
@@ -190,7 +190,6 @@ namespace UnitTests
                     string wadPath = CombinePaths(TestRootFolder, paths);
                     if (!File.Exists(wadPath))
                     {
-                        //Assert.Fail();
                         return false;
                     }
                 }
@@ -207,15 +206,36 @@ namespace UnitTests
 
                 if (!Directory.Exists(folderPath))
                 {
-                    //Assert.Fail();
                     return false;
                 }
                 string[] fileList = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories);
-                if (fileList.Length < 1) // Check that folder at least contains 1 file
+                if (fileList.Length < 1) // Check that folder contains at least 1 file of any type
                 {
-                    //Assert.Fail();
                     return false;
                 }
+            }
+            return true;
+        }
+
+        // Check the output folder for any file with .app extension
+        private bool CheckDecryptedOutput(string titleId, string titleVersion)
+        {
+            // Just check folder
+            string[] paths = { "titles", titleId };
+            string folderPath = CombinePaths(TestRootFolder, paths);
+            if (!titleVersion.Equals("*"))
+            {
+                folderPath = CombinePaths(folderPath, titleVersion);
+            }
+
+            if (!Directory.Exists(folderPath))
+            {
+                return false;
+            }
+            string[] fileList = Directory.GetFiles(folderPath, "*.app", SearchOption.AllDirectories);
+            if (fileList.Length < 1) // Check that folder contains at least 1 app file
+            {
+                return false;
             }
             return true;
         }
@@ -297,7 +317,7 @@ namespace UnitTests
             Assert.DoesNotThrow(() => nusForm.NUSDownloader_DoWork(null, null));
 
             // Check for existence of folder and wad. 000000010000000b-NUS-v10.wad
-            // Note that can't really check for the latest version, so only check for folder in that case
+            // Note that can't really check for the latest version, ie "*", so only check for folder in that case
             if (!CheckOutput(buildWad, titleId, titleVersion))
             {
                 Assert.Fail();
@@ -309,7 +329,6 @@ namespace UnitTests
         [TestCase("0000000100000037", "4633", new string[] { "http://ccs.cdn.sho.rc24.xyz/ccs/downloads/" })]
         public void TestInvalidUrl(string titleId, string titleVersion, string[] options = null)
         {
-            bool buildWad = false;
             WipeOutputFolder(TestRootFolder);
 
             Form1 nusForm = new Form1();
@@ -330,12 +349,6 @@ namespace UnitTests
             if (options != null)
             {
                 SetNusOptions(ref nusForm, options);
-                // See if one of the options is to packwad
-                var match = options.FirstOrDefault(stringToCheck => stringToCheck.Contains("packwad"));
-                if (match != null)
-                {
-                    buildWad = true;
-                }
             }
 
             // Perform the download - should fail because of the invalid args
@@ -419,11 +432,95 @@ namespace UnitTests
             }
 
             // Run the CLI util
-            string output = RunCmd(nusCmd);
+            string output = RunNusCliCmd(nusCmd);
 
             // Check for existence of folder and/or wad.
-            // Note that can't really check for the latest version, so only check for folder in that case
+            // Note that can't really check for the latest version, ie "*", so only check for folder in that case
             if (CheckOutput( buildWad,  titleId,  titleVersion) != resultExists)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestCase("0000000100000100", "5", new string[] { "createdecryptedcontents" }, true)]
+        [TestCase("0000000100000100", "5", null, false)]
+        [TestCase("0001000248414141", "2", new string[] { "createdecryptedcontents" }, true)]
+        [TestCase("0001000248414141", "2", null, false)]
+        // These have no tickets and CANNOT produce decrypted content, even with the option enabled
+        [TestCase("0001000157545245", "*", new string[] { "createdecryptedcontents" }, false)]
+        [TestCase("0001000146424845", "*", new string[] { "createdecryptedcontents" }, false)]
+        public void CreateDecryptedContentSuccess(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
+        {
+            bool buildDecryptApp = false;
+
+            // Clean the folders of any results from previous test
+            WipeOutputFolder(AssemblyFolder);
+            WipeOutputFolder(TestRootFolder);
+
+            // Append any options to command
+            string nusCmd = $"{AssemblyFolder}/nusd.exe {titleId} {titleVersion}";
+            if (options != null)
+            {
+                foreach (string arg in options)
+                {
+                    nusCmd += $" {arg}";
+                    if (arg.Equals("createdecryptedcontents"))
+                    {
+                        buildDecryptApp = true;
+                    }
+                }
+            }
+
+            // Run the CLI util
+            string output = RunNusCliCmd(nusCmd);
+
+            // Check for existence of folder and/or app file.
+            if (CheckDecryptedOutput(titleId, titleVersion) != resultExists)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestCase("000000010000000B", "256", new string[] { "packwad" }, true)]
+        // Any pached IOS will produce wad even without specifying packwad
+        [TestCase("000000010000000B", "256", new string[] { "esidentitypatch" }, true)]
+        [TestCase("000000010000000B", "256", new string[] { "nandpermissionpatch" }, true)]
+        [TestCase("000000010000000B", "256", new string[] { "truchapatch" }, true)]
+        [TestCase("000000010000000B", "256", new string[] { "truchapatch", "nandpermissionpatch", "esidentitypatch" }, true)]
+        [TestCase("000000010000000B", "256", new string[] { "nandpermissionpatch", "esidentitypatch" }, true)]
+        [TestCase("000000010000000B", "256", new string[] { "truchapatch", "esidentitypatch" }, true)]
+
+        // Non-IOS cannot be patched and will not produce .wad
+        [TestCase("00030005484e4441", "256", new string[] { "truchapatch", "esidentitypatch" }, false)]
+        [TestCase("00030005484e4441", "256", new string[] { "packwad", "esidentitypatch" }, false)]
+        public void TestCreateWad(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
+        {
+            //bool buildWad = false;
+
+            // Clean the folders of any results from previous test
+            WipeOutputFolder(AssemblyFolder);
+            WipeOutputFolder(TestRootFolder);
+
+            // Append any options to command
+            string nusCmd = $"{AssemblyFolder}/nusd.exe {titleId} {titleVersion}";
+            if (options != null)
+            {
+                foreach (string arg in options)
+                {
+                    nusCmd += $" {arg}";
+                    //if (arg.Equals("packwad"))
+                    //{
+                    //    buildWad = true;
+                    //}
+                }
+            }
+
+            // Run the CLI util
+            string output = RunNusCliCmd(nusCmd);
+
+            // Check for existence of folder and/or wad.
+            // Force buildWad to true in this call to always search for .wad files in the output folder
+            if (CheckOutput(true, titleId, titleVersion) != resultExists)
             {
                 Assert.Fail();
             }

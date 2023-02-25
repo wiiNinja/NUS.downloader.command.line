@@ -171,7 +171,7 @@ namespace libWiiSharp
         {
             if (titleId.Length != 16)
             {
-                throw new Exception("Title ID must be 16 characters long!");
+                throw new Exception("Title ID must be exactly 16 characters long!");
             }
             downloadTitle(titleId, titleVersion, outputDir, wadName, storeTypes);
         }
@@ -185,7 +185,10 @@ namespace libWiiSharp
         /// <returns></returns>
         public TMD DownloadTMD(string titleId, string titleVersion)
         {
-            if (titleId.Length != 16) throw new Exception("Title ID must be 16 characters long!");
+            if (titleId.Length != 16)
+            {
+                throw new Exception("Title ID must be exactly 16 characters long!");
+            }
             return downloadTmd(titleId, titleVersion);
         }
 
@@ -196,7 +199,10 @@ namespace libWiiSharp
         /// <returns></returns>
         public Ticket DownloadTicket(string titleId)
         {
-            if (titleId.Length != 16) throw new Exception("Title ID must be 16 characters long!");
+            if (titleId.Length != 16)
+            {
+                throw new Exception("Title ID must be exactly 16 characters long!");
+            }
             return downloadTicket(titleId);
         }
 
@@ -264,6 +270,7 @@ namespace libWiiSharp
             fireDebug("   Looking for Content ID {0} in TMD...", contentId);
             bool foundContentId = false;
             for (int i = 0; i < tmd.Contents.Length; i++)
+            {
                 if (tmd.Contents[i].ContentID == cId)
                 {
                     fireDebug("   Content ID {0} found in TMD...", contentId);
@@ -272,9 +279,12 @@ namespace libWiiSharp
                     cIndex = i;
                     break;
                 }
+            }
 
             if (!foundContentId)
-            { fireDebug("   Content ID {0} wasn't found in TMD...", contentId); throw new Exception("Content ID wasn't found in the TMD!"); }
+            {
+                fireDebug("   Content ID {0} wasn't found in TMD...", contentId); throw new Exception("Content ID wasn't found in the TMD!");
+            }
 
             //Download Ticket
             fireDebug("   Downloading Ticket...");
@@ -299,7 +309,9 @@ namespace libWiiSharp
             byte[] newSha = s.ComputeHash(decryptedContent);
 
             if (!Shared.CompareByteArrays(newSha, tmd.Contents[cIndex].Hash))
-            { fireDebug(@"/!\ /!\ /!\ Hashes do not match /!\ /!\ /!\"); throw new Exception("Hashes do not match!"); }
+            { 
+                fireDebug(@"/!\ /!\ /!\ Hashes do not match /!\ /!\ /!\"); throw new Exception("Hashes do not match!");
+            }
 
             fireProgress(100);
 
@@ -310,7 +322,9 @@ namespace libWiiSharp
         private Ticket downloadTicket(string titleId)
         {
             if (!CheckInet())
+            {
                 throw new Exception("You're not connected to the internet!");
+            }
 
             string titleUrl = string.Format("{0}{1}/", nusUrl, titleId);
             byte[] tikArray = wcNus.DownloadData(titleUrl + "cetk");
@@ -321,7 +335,9 @@ namespace libWiiSharp
         private TMD downloadTmd(string titleId, string titleVersion)
         {
             if (!CheckInet())
+            {
                 throw new Exception("You're not connected to the internet!");
+            }
 
             string titleUrl = string.Format("{0}{1}/", nusUrl, titleId);
             string tmdFile = "tmd" + (string.IsNullOrEmpty(titleVersion) ? string.Empty : string.Format(".{0}", titleVersion));
@@ -458,7 +474,9 @@ namespace libWiiSharp
 
                 // DSi ticket? Must make sure to use DSi Key :D
                 if (nusUrl == DSI_NUS_URL)
+                {
                     tik.DSiTicket = true;
+                }
             }
             else
             {
@@ -512,7 +530,6 @@ namespace libWiiSharp
                     //Write Decrypted Content
                     File.WriteAllBytes(Path.Combine(outputDir, (tmd.Contents[i].ContentID.ToString("x8") + ".app")), decryptedContent);
                 }
-
                 s.Clear();
             }
 
@@ -532,11 +549,17 @@ namespace libWiiSharp
                 wad.RemoveFooter();
                 wadName = wadName.Replace("[v]", "v" + this.TitleVersion.ToString()); // fix by madri2
                 if (Path.DirectorySeparatorChar.ToString() != "/" && Path.AltDirectorySeparatorChar.ToString() != "/")
+                {
                     wadName = wadName.Replace("/", "");
+                }
                 if (wadName.Contains(Path.DirectorySeparatorChar.ToString()) || wadName.Contains(Path.AltDirectorySeparatorChar.ToString()))
+                {
                     wad.Save(wadName);
+                }
                 else
+                {
                     wad.Save(Path.Combine(outputDir, wadName));
+                }
             }
 
             //Delete not wanted files
@@ -601,10 +624,13 @@ namespace libWiiSharp
         {
             try
             {
-                System.Net.IPHostEntry ipHost = System.Net.Dns.GetHostEntry("www.google.com");
+                IPHostEntry ipHost = Dns.GetHostEntry("www.google.com");
                 return true;
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
 
@@ -622,14 +648,18 @@ namespace libWiiSharp
         {
             EventHandler<MessageEventArgs> debug = Debug;
             if (debug != null)
+            {
                 debug(new object(), new MessageEventArgs(string.Format(debugMessage, args)));
+            }
         }
 
         private void fireProgress(int progressPercentage)
         {
             EventHandler<ProgressChangedEventArgs> progress = Progress;
             if (progress != null)
+            {
                 progress(new object(), new ProgressChangedEventArgs(progressPercentage, string.Empty));
+            }
         }
         #endregion
     }
