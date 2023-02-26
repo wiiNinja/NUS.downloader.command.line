@@ -8,6 +8,11 @@ So I whipped out this version, based on the GUI v1 from WB3000. Nothing to write
 I've tested several titles by comparing the outputs from this tool, and the outputs from WB3000's tool. 
 Both results are the same.
 
+2023-02 - At the request of XFlak, I rebuilt the CLI latest code, based on WB3000's v1.9, using .NET Framework 3.5. 
+   Some enhancements were made to this build, but I also took this opportunity to port it to Microsoft's latest
+   .NET6 (core) which supports both Linux and Windows. By doing this port the GUI is eliminated because .NET6 currently
+   does not support GUI in Linux (perhaps a future thing when Microsoft decided to support that).
+
 # Usage: 
     <executableName> <titleID> <titleVersion | *> [option] [option] ... [option]
 
@@ -41,7 +46,11 @@ Both results are the same.
     dsi = Use DSI server
     <Custom Server URL> = Optional - Can specify an alternate server URL to use instead of the built-in URLs
 
-*** NOTE ****: In the GUI <packwad> is defaulted to OFF, and <localuse> is defaulted to ON. As of v0.7 the CLI follows those defaults.
+*** NOTE ****: In the GUI the option <packwad> is defaulted to OFF, and <localuse> is defaulted to ON. As of v0.7 
+    the CLI follows those defaults.
+## Proxy
+    To use a proxy, provide your proxy information in the file named proxy.json, located in the same folder as the
+    executable. If the fields in that file are left empty, the proxy will be ignored.
 
 # Credits:
     All credits go to WB3000 for the original software. 
@@ -53,6 +62,7 @@ Both results are the same.
 
 # Requirements:
     * You will need MS .NET Framework 4.8 or 3.5 to run this tool (branch dotnet3.5 is used for 3.5)
+    * Need to install .NET6 to run in a Linux environment
     * Internet connection
 
 # Included:
@@ -64,7 +74,7 @@ Both results are the same.
     * Sample batch files - These are what I used to test in addition to the unit tests in the VS solution
 
 # Warnings:
-    * I've only tested this latest version on a Windows11 machine and my RaspberryPi4 running Linux
+    * I've only tested this latest version on a Windows11 machine and my RaspberryPi4 running Linux.
 
 # Disclaimer:
     * I'm not responsible for any bricks that may result from using this tool.
