@@ -53,7 +53,7 @@ Both results are the same.
     executable. If the fields in that file are left empty, the proxy will be ignored.
 
 # Credits:
-    All credits go to WB3000 for the original software. 
+    All credits go to WB3000 for the original software: https://github.com/WB3000/nusdownloader/tree/master/NUS%20Downloader
     WiiPower for the hint on grabbing the latest version
 
 # Linux:
