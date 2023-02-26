@@ -8,7 +8,8 @@ So I whipped out this version, based on the GUI v1 from WB3000. Nothing to write
 I've tested several titles by comparing the outputs from this tool, and the outputs from WB3000's tool. 
 Both results are the same.
 
-# Usage: <executableName> <titleID> <titleVersion | *> [option] [option] ... [option]
+# Usage: 
+    <executableName> <titleID> <titleVersion | *> [option] [option] ... [option]
 
 ## Where: 
     executableName = nusd.exe (legacy), NUSDownloader.exe (.net framework 3.5 and 4.8), NUSDownloaderNet6.exe (.NET6)
