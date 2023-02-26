@@ -16,13 +16,13 @@ namespace nusd
             bool successStatus = true;
 
             // Initialize the checkboxes and radio boxes
-            nusForm.SetPackWad(true);
+            nusForm.SetPackWad(false);
             nusForm.SetLocalUse(true);
             nusForm.SetKeepEncryptedContent(true);
             nusForm.SetCreateDecryptedContents(false);
             nusForm.SetPatchIOS(false);
             nusForm.SetServerButtonText("Wii");
-            nusForm.SetTruchaBugEnable(true);
+            nusForm.SetTruchaBugEnable(false);
 
             Console.WriteLine("\n\n---------------------------------------------------------------------------------------------------------------");
             Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code {nusForm.GetVersion()} by WB3000");

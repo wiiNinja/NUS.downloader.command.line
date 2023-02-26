@@ -12,8 +12,10 @@ namespace UnitTests
     {
         private string TestRootFolder;
         private string AssemblyFolder;
-        private const string EXECUTABLE_NAME = "nusd.exe";
-        //private const string EXECUTABLE_NAME = "NUSDownloader.exe";
+        // At the moment, either nusd.exe or NUSDownloader.exe can be used as CLI. 
+        // In the future, I'll probably remove nusd.exe
+        //private const string EXECUTABLE_NAME = "nusd.exe";
+        private const string EXECUTABLE_NAME = "NUSDownloader.exe";
 
         [SetUp]
         public void Setup()
@@ -420,7 +422,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}\\{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)

@@ -131,7 +131,6 @@ namespace NUS_Downloader
                 Debug.WriteLine("Running in command line mode...");
                 RunCommandMode(args);
                 Environment.Exit(0);
-                //this.Close();
             }
             else
             {
@@ -649,9 +648,30 @@ namespace NUS_Downloader
             nusClient.Progress += new EventHandler<ProgressChangedEventArgs>(nusClient_Progress);
 
             libWiiSharp.StoreType[] storeTypes = new libWiiSharp.StoreType[3];
-            if (packbox.Checked) storeTypes[0] = libWiiSharp.StoreType.WAD; else storeTypes[0] = libWiiSharp.StoreType.Empty;
-            if (decryptbox.Checked) storeTypes[1] = libWiiSharp.StoreType.DecryptedContent; else storeTypes[1] = libWiiSharp.StoreType.Empty;
-            if (keepenccontents.Checked) storeTypes[2] = libWiiSharp.StoreType.EncryptedContent; else storeTypes[2] = libWiiSharp.StoreType.Empty;
+            if (packbox.Checked)
+            {
+                storeTypes[0] = libWiiSharp.StoreType.WAD;
+            }
+            else
+            {
+                storeTypes[0] = libWiiSharp.StoreType.Empty;
+            }
+            if (decryptbox.Checked)
+            {
+                storeTypes[1] = libWiiSharp.StoreType.DecryptedContent;
+            }
+            else
+            {
+                storeTypes[1] = libWiiSharp.StoreType.Empty;
+            }
+            if (keepenccontents.Checked)
+            {
+                storeTypes[2] = libWiiSharp.StoreType.EncryptedContent;
+            }
+            else
+            {
+                storeTypes[2] = libWiiSharp.StoreType.Empty;
+            }
 
             string wadName;
             if (String.IsNullOrEmpty(WAD_Saveas_Filename))
@@ -3121,12 +3141,14 @@ namespace NUS_Downloader
             bool NandPermissionPatchEnable = false;
             bool successStatus = true;
 
-            // Initialize the checkboxes and radio boxes
-            packbox.Checked = false;  // Create wad - default OFF
-            localuse.Checked = true; // Use local content if already downloaded - default ON
-            decryptbox.Checked = false;
-            keepenccontents.Checked = false;
-            //consoleCBox.SelectedIndex = 0; // 0 is Wii, 1 is DS
+            // Initialize the checkboxes and radio boxes. These are defaults in the GUI version
+            SetPackWad(false);     // Create wad - default OFF
+            SetLocalUse(true);     // Use local content if already downloaded - default ON
+            SetKeepEncryptedContent(true);
+            SetCreateDecryptedContents(false);
+            SetPatchIOS(false);
+            SetServerButtonText("Wii");
+            SetTruchaBugEnable(false);
 
             // Clear 3 items in ios patches list. This feature is not supported in the command line version at this time.
             iosPatchCheckbox.Checked = false;
@@ -3136,9 +3158,6 @@ namespace NUS_Downloader
 
             Console.WriteLine("\n\n---------------------------------------------------------------------------------------------------------------");
             Console.WriteLine($"NUS Downloader Command Line {NUSD_VERSION} by wiiNinja. Based on GUI code {GetVersion()} by WB3000");
-
-            //Console.WriteLine("NUS Downloader - {0}", version);
-            //Debug.WriteLine("In RunCommandMode");
 
             if ((args.Length < 2) || (args[0].ToLower().Equals("help")))
             {
@@ -3251,6 +3270,7 @@ namespace NUS_Downloader
                     try
                     {
                         Console.WriteLine($"Downloading using arguments: {commandArgs}");
+                        // keepenccontents.Checked = true;
                         NUSDownloader_DoWork(null, null);
                     }
                     catch (Exception ex)
