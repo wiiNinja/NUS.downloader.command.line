@@ -24,22 +24,22 @@ Both results are the same.
                    To get the latest version, use a "*" (without quotes)
 ### [option] can be any of the following:
     help = Display this help text
-    packwad = Optional: A wad file will be generated
-    localuse = Optional: All the downloaded files will be retained locally
-    createdecryptedcontents = Optional: Create decrypted (.app) content
+    packwad = A wad file will be generated
+    localuse = All the downloaded files will be retained locally
+    createdecryptedcontents = Create decrypted (.app) content
         * I've only verified the creation of, but not the validity of the results. 
         * Content is same as the original GUI version.
     removeencryptedcontents = Remove the downloaded encrypted contents.
         ****** CAUTION ******* - Use this with care, because if this option is used by itself, no outputs will be produced.
         All the encrypted downloaded files will be removed after downloaded. To make any sense, this should be used 
         with "packwad" or "createdecryptedcontents"
-    truchapatch = Optional: If IOS, then apply Trucha patch
+    truchapatch = If IOS, then apply Trucha patch
         * I've only verified the creation of, but not the validity of the results. 
         * Content is same as the original GUI version.
-    esidentitypatch = Optional: If IOS, then apply ES Identity patch
+    esidentitypatch = If IOS, then apply ES Identity patch
         * I've only verified the creation of, but not the validity of the results.
         * Content is same as the original GUI version.
-    nandpermissionpatch = Optional: If IOS, then apply NAND Permission patch
+    nandpermissionpatch = If IOS, then apply NAND Permission patch
         * I've only verified the creation of, but not the validity of the results.
         * Content is same as the original GUI version.
     wii = Default NUS server (automatically selects the first online server between official wii server and RC24)
