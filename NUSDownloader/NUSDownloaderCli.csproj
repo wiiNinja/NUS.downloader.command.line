@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NUS_Downloader</RootNamespace>
     <AssemblyName>NUSDownloader</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Crystal_Clear_app_ark2.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
