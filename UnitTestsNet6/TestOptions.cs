@@ -64,15 +64,8 @@ namespace UnitTests
         private void SetDefaultNusOptions(ref NusDownloader nusDownloader)
         {
             nusDownloader.SetLocalUse(true);
-            //TruchaBugEnable = true;
-            //ESIdentityPatchEnable = true;
-            //NandPermissionPatchEnable = true;
-            //nusForm.SetEsIdentityBugEnable(true);
-            //nusForm.SetNandPermissionBugEnable(true);
             nusDownloader.SetCreateDecryptedContents(false);
-            //nusForm.SetCustomNusUrl(args[i]);
             nusDownloader.SetNusType("wii");
-            //nusForm.SetNusType("dsi");
         }
 
         private void SetNusOptions(ref NusDownloader nusDownloader, string[] options)

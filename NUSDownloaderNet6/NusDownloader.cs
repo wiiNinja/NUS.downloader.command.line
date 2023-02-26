@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.IO;
 
 namespace NUSDownloaderNet6
 {
@@ -22,13 +25,12 @@ namespace NUSDownloaderNet6
         private bool PatchEsIdentityBug = false;
         private bool PatchNandPermissionBug = false;
         private bool PatchTruchaBug = false;
-        //private string ServerTypeOption = "Wii";
         private string NusTypeOption = "wii";
         private string TitleIdOption = "";
         private string TitleVersionOption = "";
         private string CustomNusUrl = "";
-
         private string WadFileName = "";
+        private ProxyInfo UserProxyInfo = new ProxyInfo();
         private readonly string CURRENT_DIR = Directory.GetCurrentDirectory();
 
         public void SetPackWad(bool packWadFlag)
@@ -51,16 +53,6 @@ namespace NUSDownloaderNet6
         {
             PatchIosOption = patchFlag;
         }
-        //public void RemoveDownloadedEncryptedContents()
-        //{
-        //    KeepEncryptedContentsOption = false;
-        //}
-
-        //public void SetServerType(string serverType /* "Wii" or "dsi" */)
-        //{
-        //    ServerTypeOption = serverType;
-        //}
-
 
         public void SetTileId(string titleId)
         {
@@ -100,30 +92,54 @@ namespace NUSDownloaderNet6
             Console.WriteLine(Update);
         }
 
+        // Expect user to have a file named proxy.json in the same folder as the executable
+        private bool GetProxyInfoFromFile ()
+        {
+            bool success = true;
+            UserProxyInfo.url = "";
+            UserProxyInfo.userName = "";
+            UserProxyInfo.password = "";
+
+            // Read JSON directly from a file, CURRENT_DIR
+            string filePath = System.IO.Path.Combine(CURRENT_DIR, "proxy.json");
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    UserProxyInfo = JsonConvert.DeserializeObject<ProxyInfo>(File.ReadAllText(filePath));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning: Cannot read proxy information from {filePath}");
+                    success = false;
+                }
+            }
+            return success;
+        }
+
         private WebClient ConfigureWithProxy(WebClient client)
         {
-            // MTP: Proxy is set and saved in proxy.txt
+            GetProxyInfoFromFile();
 
-            /* MTP: TODO
-            // Proxy
-            if (!(String.IsNullOrEmpty(proxy_url)))
+            // MTP: Proxy is set and saved in proxy.txt
+            if (!(String.IsNullOrEmpty(UserProxyInfo.url)))
             {
                 WebProxy customproxy = new WebProxy();
-                customproxy.Address = new Uri(proxy_url);
-                if (String.IsNullOrEmpty(proxy_usr))
+                customproxy.Address = new Uri(UserProxyInfo.url);
+                if (String.IsNullOrEmpty(UserProxyInfo.userName))
                     customproxy.UseDefaultCredentials = true;
                 else
                 {
                     NetworkCredential cred = new NetworkCredential();
-                    cred.UserName = proxy_usr;
+                    cred.UserName = UserProxyInfo.userName;
 
-                    if (!(String.IsNullOrEmpty(proxy_pwd)))
-                        cred.Password = proxy_pwd;
+                    if (!(String.IsNullOrEmpty(UserProxyInfo.password)))
+                        cred.Password = UserProxyInfo.password;
 
                     customproxy.Credentials = cred;
                 }
                 client.Proxy = customproxy;
-                WriteStatus("  - Custom proxy settings applied!");
+                WriteStatus(">>> Warning: The file proxy.json exists. Custom proxy settings applied!");
             }
             else
             {
@@ -138,7 +154,6 @@ namespace NUSDownloaderNet6
                     WriteStatus("This operating system does not support automatic system proxy usage. Operating without a proxy...");
                 }
             }
-            */
             return client;
         }
 
@@ -256,7 +271,6 @@ namespace NUSDownloaderNet6
         private void UpdatePackedName()
         {
             // Change WAD name if applicable
-
             string title_name = null;
 
             if (PackWadOption)
@@ -287,11 +301,6 @@ namespace NUSDownloaderNet6
             WriteStatus(e.Message);
         }
 
-        //void nusClient_Progress(object sender, ProgressChangedEventArgs e)
-        //{
-        //    dlprogress.Value = e.ProgressPercentage;
-        //}
-
         private bool ValidateOptions()
         {
             if ((KeepEncryptedContentsOption == false) && (PackWadOption == false) && (CreateDecryptedContentsOption == false))
@@ -316,8 +325,6 @@ namespace NUSDownloaderNet6
             }
 
             WriteStatus("Starting NUS Download. Please be patient!");
-            // MTP GUI-SetEnableforDownload(false);
-            // MTP GUI-downloadstartbtn.Text = "Starting NUS Download!";
 
             // WebClient configuration
             WebClient nusWC = new WebClient();
@@ -379,13 +386,6 @@ namespace NUSDownloaderNet6
             }
 
             UpdatePackedName();
-            /* MTP
-            string wadName;
-            if (String.IsNullOrEmpty(WAD_Saveas_Filename))
-                wadName = wadnamebox.Text;
-            else
-                wadName = WAD_Saveas_Filename;
-            */
 
             // ----------------------------------------------------
             // Perform the download
@@ -494,4 +494,11 @@ namespace NUSDownloaderNet6
             }
         } // Dowork
     } // Class
+
+    internal class ProxyInfo
+    {
+        public string url;
+        public string userName;
+        public string password;
+    }
 } // namespace
