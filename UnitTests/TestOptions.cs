@@ -426,7 +426,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}\\{EXECUTABLE_NAME} {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}{Path.DirectorySeparatorChar}{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
@@ -468,7 +468,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}{Path.DirectorySeparatorChar}{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
@@ -507,7 +507,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}{Path.DirectorySeparatorChar}{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
@@ -562,7 +562,7 @@ namespace UnitTests
             WipeOutputFolder(TestRootFolder);
 
             // Append any options to command
-            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
+            string nusCmd = $"{AssemblyFolder}{Path.DirectorySeparatorChar}{EXECUTABLE_NAME} {titleId} {titleVersion}";
             if (options != null)
             {
                 foreach (string arg in options)
