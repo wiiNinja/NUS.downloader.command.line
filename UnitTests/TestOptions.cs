@@ -493,11 +493,11 @@ namespace UnitTests
 
         [Test]
         // For debugging only. These produce no files in the output. This option is available on the GUI with a warning to the user
-        [TestCase("000000010000003c", "6174", new string[] { "removeencryptedcontent" }, false)]
-        [TestCase("0001000248414141", "2", new string[] { "removeencryptedcontent" }, false)]
+        [TestCase("000000010000003c", "6174", new string[] { "removeencryptedcontents" }, false)]
+        [TestCase("0001000248414141", "2", new string[] { "removeencryptedcontents" }, false)]
         // packwad with removeencryptedcontent should result in some wad files being produced, but the encrypted downloads will be removed
-        [TestCase("000000010000003c", "6174", new string[] { "removeencryptedcontent", "packwad" }, true)]
-        [TestCase("0001000248414141", "2", new string[] { "removeencryptedcontent", "createdecryptedcontents" }, true)]
+        [TestCase("000000010000003c", "6174", new string[] { "removeencryptedcontents", "packwad" }, true)]
+        [TestCase("0001000248414141", "2", new string[] { "removeencryptedcontents", "createdecryptedcontents" }, true)]
         public void NoOutputFiles(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
         {
             bool buildDecryptApp = false;
@@ -526,7 +526,7 @@ namespace UnitTests
             // Check output for a warning
             if (!resultExists)
             {
-                if (!output.Contains("*** Warning: The option \"removeencryptedcontent\" if used by itself will result in no files in the output folder."))
+                if (!output.Contains("*** Warning: The option \"removeencryptedcontents\" if used by itself will result in no files in the output folder."))
                 {
                     Assert.Fail();
                 }

@@ -8,10 +8,10 @@ echo Get some titles with invalid args - Should fail
 %NUS_COMMAND% 0000000100000015 1038 packwaddle
 
 rem Should produce warnings
-%NUS_COMMAND% 000000010000003d 4890 removeencryptedcontent
-%NUS_COMMAND% 0000000100000011 512 removeencryptedcontent
+%NUS_COMMAND% 000000010000003d 4890 removeencryptedcontents
+%NUS_COMMAND% 0000000100000011 512 removeencryptedcontents
 rem Should NOT produce warnings
-%NUS_COMMAND% 0000000100000035 4113 removeencryptedcontent packwad
-%NUS_COMMAND% 0000000100000021 * removeencryptedcontent createdecryptedcontents
+%NUS_COMMAND% 0000000100000035 4113 removeencryptedcontents packwad
+%NUS_COMMAND% 0000000100000021 * removeencryptedcontents createdecryptedcontents
 
 pause

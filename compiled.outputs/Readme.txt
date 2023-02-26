@@ -18,6 +18,10 @@ Where:
     createdecryptedcontents = Optional: Create decrypted (.app) content
         * I've only verified the creation of, but not the validity of the results. 
         * Content is same as the original GUI version.
+    removeencryptedcontents = Remove the downloaded encrypted contents.
+        ****** CAUTION ******* - Use this with care, because if this option is used by itself, no outputs will be produced.
+        All the encrypted downloaded files will be removed after downloaded. To make any sense, this should be used 
+        with "packwad" or "createdecryptedcontents"
     truchapatch = Optional: If IOS, then apply Trucha patch
         * I've only verified the creation of, but not the validity of the results. 
         * Content is same as the original GUI version.
@@ -30,14 +34,9 @@ Where:
     wii = Default NUS server (automatically selects the first online server between official wii server and RC24)
     dsi = Use DSI server
     <Custom Server URL> = Optional - Can specify an alternate server URL to use instead of the built-in URLs
-    removeencryptedcontent = Remove the downloaded encrypted contents.
-        ****** CAUTION ******* - Use this with care, because if this option is used by itself, no outputs will be produced.
-        All the encrypted downloaded files will be removed after downloaded. To make any sense, this should be used 
-        with "packwad" or "createdecryptedcontents"
     help = Display this help text
 
-*** NOTE ****: In the GUI <packwad> is defaulted to OFF, but in this CLI both <packwad> and <localuse> are defaulted to ON 
-    to make it easier for people to use. If for there's a good reason for turning this OFF, PM me in GBATemp.net, and I'll change it.
+*** NOTE ****: In the GUI <packwad> is defaulted to OFF, and <localuse> is defaulted to ON. As of v0.7 the CLI follows those defaults.
 
 Credits: All credits go to WB3000 for the original software. 
          WiiPower for the hint on grabbing the latest version
@@ -68,7 +67,7 @@ Revision History:
     v0.4 - 2/22/2023 - Recompiled using .NET 3.5 instead of .NET 4.8 (Use branch dotnet3.5)
     v0.6 - 2/24/2023 - Additional wii/dsi options, custom URL override, help text, and use RC24 server as alternate.
                        Fixed up NUSDownloader.exe's CLI interface and removed the nusd.exe (No need to maintain two versions)
-    v0.7 - 2/24/2023 - Added options "removeencryptedcontent" and "help".
+    v0.7 - 2/24/2023 - Added options "removeencryptedcontents" and "help". Option "packwad" now defaults to OFF to be consistent with GUI.
 
 -------- 0 ---------
 wiiNinja

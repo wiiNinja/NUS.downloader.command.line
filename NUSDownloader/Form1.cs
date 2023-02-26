@@ -3159,7 +3159,7 @@ namespace NUS_Downloader
             bool successStatus = true;
 
             // Initialize the checkboxes and radio boxes. These are defaults in the GUI version
-            SetPackWad(false);     // Create wad - default OFF
+            SetPackWad(false);     // Create wad - default to OFF per Readme.txt
             SetLocalUse(true);     // Use local content if already downloaded - default ON
             SetKeepEncryptedContent(true);
             SetCreateDecryptedContents(false);
@@ -3249,7 +3249,7 @@ namespace NUS_Downloader
                                 ShowHelpText();
                                 successStatus = false; // Just don't continue after a help arg
                             }
-                            else if (args[i].ToLower() == "removeencryptedcontent")
+                            else if (args[i].ToLower() == "removeencryptedcontents")
                             {
                                 // Encrypted content is downloaded, decrypted (if specified), and
                                 // create .app or .wad (if specified). If decrypt and .wad/.app are not specified, then nothing
@@ -3271,7 +3271,7 @@ namespace NUS_Downloader
                     // Some sanity checks to warn the user if some options don't make sense
                     if (!ValidateOptions())
                     {
-                        Console.WriteLine($"*** Warning: The option \"removeencryptedcontent\" if used by itself will result in no files in the output folder.");
+                        Console.WriteLine($"*** Warning: The option \"removeencryptedcontents\" if used by itself will result in no files in the output folder.");
                     }
 
                     // Do this to set the wad file name
