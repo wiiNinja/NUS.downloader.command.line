@@ -222,7 +222,7 @@ namespace UnitTests
         }
 
         // Check the output folder for any file with .app extension
-        private bool CheckDecryptedOutput(string titleId, string titleVersion)
+        private bool CheckOutputFile(string titleId, string titleVersion, string filesFilter)
         {
             // Just check folder
             string[] paths = { "titles", titleId };
@@ -236,7 +236,8 @@ namespace UnitTests
             {
                 return false;
             }
-            string[] fileList = Directory.GetFiles(folderPath, "*.app", SearchOption.AllDirectories);
+            //string[] fileList = Directory.GetFiles(folderPath, "*.app", SearchOption.AllDirectories);
+            string[] fileList = Directory.GetFiles(folderPath, filesFilter, SearchOption.AllDirectories);
             if (fileList.Length < 1) // Check that folder contains at least 1 app file
             {
                 return false;
@@ -252,6 +253,7 @@ namespace UnitTests
             Assert.NotNull(nusForm);
         }
 
+        [Test]
         [TestCase("000000010000000b", "*")]
         [TestCase("000000010000003d", "*")]
         [TestCase("0000000100000021", "*")]
@@ -328,6 +330,7 @@ namespace UnitTests
             }
         }
 
+        [Test]
         [TestCase("0000000100000037", "4633", new string[] { "http://nus.bogus.shop.wii.com/ccs/download/" })]
         [TestCase("0000000100000037", "4633", new string[] { "http://nus.cdn.t2.shop.nintendowifi.net/ccs/download/" })]
         [TestCase("0000000100000037", "4633", new string[] { "http://ccs.cdn.sho.rc24.xyz/ccs/downloads/" })]
@@ -360,6 +363,7 @@ namespace UnitTests
             Assert.True(ex.Message.Contains("Downloading TMD Failed"));
         }
 
+        [Test]
         [TestCase("000000010000000b", "*")]
         [TestCase("000000010000003d", "*")]
         [TestCase("0000000100000021", "*")]
@@ -446,6 +450,7 @@ namespace UnitTests
             }
         }
 
+        [Test]
         [TestCase("0000000100000100", "5", new string[] { "createdecryptedcontents" }, true)]
         [TestCase("0000000100000100", "5", null, false)]
         [TestCase("0001000248414141", "2", new string[] { "createdecryptedcontents" }, true)]
@@ -453,6 +458,7 @@ namespace UnitTests
         // These have no tickets and CANNOT produce decrypted content, even with the option enabled
         [TestCase("0001000157545245", "*", new string[] { "createdecryptedcontents" }, false)]
         [TestCase("0001000146424845", "*", new string[] { "createdecryptedcontents" }, false)]
+
         public void CreateDecryptedContentSuccess(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
         {
             bool buildDecryptApp = false;
@@ -479,12 +485,61 @@ namespace UnitTests
             string output = RunNusCliCmd(nusCmd);
 
             // Check for existence of folder and/or app file.
-            if (CheckDecryptedOutput(titleId, titleVersion) != resultExists)
+            if (CheckOutputFile(titleId, titleVersion, "*.app") != resultExists)
             {
                 Assert.Fail();
             }
         }
 
+        [Test]
+        // For debugging only. These produce no files in the output. This option is available on the GUI with a warning to the user
+        [TestCase("000000010000003c", "6174", new string[] { "removeencryptedcontents" }, false)]
+        [TestCase("0001000248414141", "2", new string[] { "removeencryptedcontents" }, false)]
+        // packwad with removeencryptedcontent should result in some wad files being produced, but the encrypted downloads will be removed
+        [TestCase("000000010000003c", "6174", new string[] { "removeencryptedcontents", "packwad" }, true)]
+        [TestCase("0001000248414141", "2", new string[] { "removeencryptedcontents", "createdecryptedcontents" }, true)]
+        public void NoOutputFiles(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
+        {
+            bool buildDecryptApp = false;
+
+            // Clean the folders of any results from previous test
+            WipeOutputFolder(AssemblyFolder);
+            WipeOutputFolder(TestRootFolder);
+
+            // Append any options to command
+            string nusCmd = $"{AssemblyFolder}/{EXECUTABLE_NAME} {titleId} {titleVersion}";
+            if (options != null)
+            {
+                foreach (string arg in options)
+                {
+                    nusCmd += $" {arg}";
+                    if (arg.Equals("createdecryptedcontents"))
+                    {
+                        buildDecryptApp = true;
+                    }
+                }
+            }
+
+            // Run the CLI util
+            string output = RunNusCliCmd(nusCmd);
+
+            // Check output for a warning
+            if (!resultExists)
+            {
+                if (!output.Contains("*** Warning: The option \"removeencryptedcontents\" if used by itself will result in no files in the output folder."))
+                {
+                    Assert.Fail();
+                }
+            }
+
+            // Check for existence of any files in the output folder
+            if (CheckOutputFile(titleId, titleVersion, "*.*") != resultExists)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
         [TestCase("000000010000000B", "256", new string[] { "packwad" }, true)]
         // Any pached IOS will produce wad even without specifying packwad
         [TestCase("000000010000000B", "256", new string[] { "esidentitypatch" }, true)]
@@ -497,6 +552,7 @@ namespace UnitTests
         // Non-IOS cannot be patched and will not produce .wad
         [TestCase("00030005484e4441", "256", new string[] { "truchapatch", "esidentitypatch" }, false)]
         [TestCase("00030005484e4441", "256", new string[] { "packwad", "esidentitypatch" }, false)]
+
         public void TestCreateWad(string titleId, string titleVersion, string[] options = null, bool resultExists = true)
         {
             //bool buildWad = false;
