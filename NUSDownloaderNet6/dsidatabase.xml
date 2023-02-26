@@ -1,0 +1,113 @@
+<database v="(01/19/2011)"><!--MM/DD/YYYY-->
+	<DSISYSTEM>
+		<name>System Menu (Launcher)</name>
+		<titleID>00030017484e41XX</titleID>
+		<region>1,2,5,6,8,10</region>
+		<version>512,768</version>
+		<ticket>true</ticket>
+		<danger>This is the DSi System Menu. Failing to install it properly and intact could result in a brick!</danger>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Nintendo DSi Shop</name>
+		<titleID>00030015484e46XX</titleID>
+		<region>1,2,5,6,8,10</region>
+		<version>1792,2048</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Nintendo DSi Browser</name>
+		<titleID>00030004484e47XX</titleID>
+		<region>2,5,8,10</region>
+		<version>0,512,768</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Nintendo DSi Camera</name>
+		<titleID>00030004484e49XX</titleID>
+		<region>2,5,8,10</region>
+		<version>256,768</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Nintendo Zone</name>
+		<titleID>00030004484e4aXX</titleID>
+		<region>2,5,8,10</region>
+		<version>512,768</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Nintendo DSi Sound</name>
+		<titleID>00030004484e4bXX</titleID>
+		<region>2,5,8,10</region>
+		<version>256,512</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>DS Download Play</name>
+		<titleID>00030005484e44XX</titleID>
+		<region>0</region>
+		<version>256</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Pictochat</name>
+		<titleID>00030005484e45XX</titleID>
+		<region>0</region>
+		<version>0</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>WiFi Firmware</name>
+		<titleID>0003000f484e43XX</titleID>
+		<region>0</region>
+		<version>256,512</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Nintendo DS Cart Whitelist</name>
+		<titleID>0003000f484e48XX</titleID>
+		<region>0</region>
+		<version>256,512</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>Version Data</name>
+		<titleID>0003000f484e4cXX</titleID>
+		<region>1,2,5,6,8,10</region>
+		<version>1 (Japan),2 (Japan),3 (Australia/NewZealand),4 (China),5</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSISYSTEM>
+		<name>System Settings</name>
+		<titleID>00030015484e42XX</titleID>
+		<region>2,5,8,10</region>
+		<version>512</version>
+		<ticket>true</ticket>
+	</DSISYSTEM>
+	<DSIWARE>
+		<name>Paper Airplane Chase</name>
+		<titleID>000300044B414DXX</titleID>
+		<region>2,11</region>
+		<ticket>false</ticket>
+	</DSIWARE>
+	<DSIWARE>
+		<name>WarioWare: Snapped!</name>
+		<titleID>000300044B5557XX</titleID>
+		<region>2,11</region>
+		<ticket>false</ticket>
+	</DSIWARE>
+	<REGIONS>
+		<region index="0">41 (All/System)</region>
+		<region index="1">43 (China)</region>
+		<region index="2">45 (USA/NTSC)</region>
+		<region index="3">48 (Belgium/Netherlands)</region>
+		<region index="5">4A (Japan)</region>
+		<region index="6">4B (Korea)</region>
+		<region index="7">4F (Unknown)</region>
+		<region index="8">50 (Europe/PAL)</region>
+		<region index="9">54 (Unknown)</region>
+		<region index="10">55 (Australia/NewZealand)</region>
+		<region index="11">56 (Europe/DSiWare)</region>
+		<region index="12">56 (Unknown)</region>
+	</REGIONS>
+</database>

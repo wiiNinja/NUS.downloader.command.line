@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NUSDownloaderCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "help"
+    }
+  }
+}

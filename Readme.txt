@@ -6,9 +6,10 @@ So I whipped out this version, based on the GUI v1 from WB3000. Nothing to write
 I've tested several titles by comparing the outputs from this tool, and the outputs from WB3000's tool. 
 Both results are the same.
 
-Usage: nusd <titleID> <titleVersion | *> [option] [option] ... [option]
+Usage: <executableName> <titleID> <titleVersion | *> [option] [option] ... [option]
 
 Where: 
+    executableName = nusd.exe (legacy), NUSDownloader.exe (.net framework 3.5 and 4.8), NUSDownloaderNet6.exe (.NET6)
     titleID = The ID of the title to be downloaded
     titleVersion = The version of the title to be downloaded
                    To get the latest version, use a "*" (without quotes)
@@ -50,7 +51,9 @@ Included:
 
     * Binary NUSDownloader.exe
     * The original "NUSdownloader.exe" from WB3000 - Required to be in the same folder as nusd.exe
-    * Modified source with Visual Studio soltuion and projects
+    * Modified source with Visual Studio solutions and projects
+          NUSDownloaderNet6.sln - VS solution for the latest and greatest .NET6 - Can run natively in Linux
+          NUSDownloaderCli.sln - VS solution for the legacy .NET Framework 3.5 and 4.8
     * Sample batch files - These are what I used to test in addition to the unit tests in the VS solution
 
 Warnings:
@@ -68,6 +71,8 @@ Revision History:
     v0.6 - 2/24/2023 - Additional wii/dsi options, custom URL override, help text, and use RC24 server as alternate.
                        Fixed up NUSDownloader.exe's CLI interface and removed the nusd.exe (No need to maintain two versions)
     v0.7 - 2/24/2023 - Added options "removeencryptedcontents" and "help". Option "packwad" now defaults to OFF to be consistent with GUI.
+    v0.8 - 2/24/2023 - Ported to Dotnet6, which allows CLI app to run in both Windows and Linux environments. 
+                       Note that this port is completely CLI-based. No GUI because MS NET6 currently does not support GUI in Linux.
 
 -------- 0 ---------
 wiiNinja
