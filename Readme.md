@@ -46,7 +46,7 @@ Both results are the same.
     dsi = Use DSI server
     <Custom Server URL> = Optional - Can specify an alternate server URL to use instead of the built-in URLs
 
-*** NOTE ****: In the GUI the option <packwad> is defaulted to OFF, and <localuse> is defaulted to ON. As of v0.7 
+*** NOTE ****: In the GUI the option "packwad" is defaulted to OFF, and "localuse" is defaulted to ON. As of v0.7 
     the CLI follows those defaults.
 ## Proxy
     To use a proxy, provide your proxy information in the file named proxy.json, located in the same folder as the
