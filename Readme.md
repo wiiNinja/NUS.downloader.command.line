@@ -14,7 +14,7 @@ Both results are the same.
    does not support GUI in Linux (perhaps a future thing when Microsoft decided to support that).
 
 # Usage: 
-    <executableName> <titleID> <titleVersion | *> [option] [option] ... [option]
+    <executableName> <titleID> <titleVersion> [option] [option] ... [option]
 
 ## Where: 
     executableName = nusd.exe (legacy), NUSDownloader.exe (.net framework 3.5 and 4.8), NUSDownloaderNet6.exe (.NET6)
