@@ -61,7 +61,8 @@ Revision History:
     v0.3 - 12/08/2021 - Retrieved the latest version of NUS Downloader from Google Code that was already archived.
                         Provided additional command-line arguments per v1.9 of NUS Downloader.
     v0.4 - 2/22/2023 - Recompiled using .NET 3.5 instead of .NET 4.8 (Use branch dotnet3.5)
-    v0.6 - 2/24/2023 - Additional wii/dsi options, custom URL override, and use RC24 server as alternate. (Use branch dotnet3.5)
+    v0.6 - 2/24/2023 - Additional wii/dsi options, custom URL override, and use RC24 server as alternate.
+                       Fixed up NUSDownloader.exe's CLI interface and removed the nusd.exe (No need to maintain two versions)
 
 -------- 0 ---------
 wiiNinja

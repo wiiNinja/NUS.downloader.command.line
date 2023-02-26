@@ -1,6 +1,6 @@
 @echo off
-set NUS_COMMAND=nusd
-rem set NUS_COMMAND=NUSDownloader.exe
+rem set NUS_COMMAND=nusd
+set NUS_COMMAND=NUSDownloader.exe
 
 echo Get some titles with invalid args - Should fail
 
