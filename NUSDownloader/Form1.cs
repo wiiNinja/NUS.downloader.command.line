@@ -3281,6 +3281,7 @@ namespace NUS_Downloader
                     if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
                     {
                         SetPatchIOS(true);
+                        SetPackWad(true); // Per GUI behavior any patch automatically creates wad
                     }
                     SetTruchaBugEnable(TruchaBugEnable);
                     SetEsIdentityBugEnable(ESIdentityPatchEnable);
@@ -3327,7 +3328,7 @@ namespace NUS_Downloader
             Console.WriteLine("    nandpermissionpatch = Apply NAND Permission patch to IOS");
             Console.WriteLine("    <NUSUrl> = Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
             Console.WriteLine("    <nusType> = Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
-            Console.WriteLine("    removeencryptedcontent = *** CAUTION *** - Remove downloaed contents after other operations are done. Refer to Readme.txt");
+            Console.WriteLine("    removeencryptedcontent = *** CAUTION *** - Remove downloaded contents after other operations are done. Refer to Readme.txt");
             Console.WriteLine("    help = Show help text");
         }
     }
