@@ -48,7 +48,7 @@ namespace NUS_Downloader
         // TODO: Always remember to change version!
         private string version = "v1.9";
 #endif
-        const string NUSD_VERSION = "v0.6";
+        const string NUSD_VERSION = "v0.7";
 
         // Cross-thread Windows Formsing
         private delegate void AddToolStripItemToStripCallback(
@@ -3128,6 +3128,23 @@ namespace NUS_Downloader
             }
         }
 
+        public void RemoveDownloadedEncryptedContents ()
+        {
+            keepenccontents.Checked = false;
+        }
+
+        private bool ValidateOptions ()
+        {
+            if ((keepenccontents.Checked == false) && (packbox.Checked == false) && (decryptbox.Checked == false))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void SetCustomNusUrl (String customNusUrl)
         {
             CustomNusUrl = customNusUrl;
@@ -3161,21 +3178,7 @@ namespace NUS_Downloader
 
             if ((args.Length < 2) || (args[0].ToLower().Equals("help")))
             {
-                Console.WriteLine("Usage:");
-                Console.WriteLine("    nusd <titleID> <titleVersion | *> [option] [option] ... [option]");
-                Console.WriteLine("\nWhere:");
-                Console.WriteLine("    titleID = The ID of the title to be downloaded");
-                Console.WriteLine("    titleVersion = The version of the title to be downloaded");
-                Console.WriteLine("              Use \"*\" (without quotes) to get the latest version");
-                Console.WriteLine("\n[option] can be any of the following:");
-                Console.WriteLine("    packwad = A wad file will be generated when appropriate");
-                Console.WriteLine("    localuse = All the downloaded files will be retained locally");
-                Console.WriteLine("    createdecryptedcontents = Create decrypted (.app) contents");
-                Console.WriteLine("    truchapatch = Apply Trucha patch to IOS");
-                Console.WriteLine("    esidentitypatch = Apply ES Identity patch to IOS");
-                Console.WriteLine("    nandpermissionpatch = Apply NAND Permission patch to IOS");
-                Console.WriteLine("    <NUSUrl> = Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
-                Console.WriteLine("    <nusType> = Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
+                ShowHelpText();
             }
             else
             {
@@ -3241,10 +3244,21 @@ namespace NUS_Downloader
                             {
                                 SetNusType("dsi");
                             }
+                            else if (args[i].ToLower() == "help")
+                            {
+                                ShowHelpText();
+                                successStatus = false; // Just don't continue after a help arg
+                            }
+                            else if (args[i].ToLower() == "removeencryptedcontent")
+                            {
+                                // Encrypted content is downloaded, decrypted (if specified), and
+                                // create .app or .wad (if specified). If decrypt and .wad/.app are not specified, then nothing
+                                // will be left in the output folder after the command is run.
+                                RemoveDownloadedEncryptedContents();
+                            }
                             else
                             {
-                                // Invalid option
-                                // throw new InvalidProgramException($"Error: Invalid option \"{args[i]}\" was specified on the command line");
+                                // Bail after an invalid option
                                 Console.WriteLine($"Error: Invalid option \"{args[i]}\" was specified on the command line");
                                 successStatus = false;
                             }
@@ -3252,11 +3266,17 @@ namespace NUS_Downloader
                     }
                 }
 
-                // Do this to set the wad file name
-                UpdatePackedName();
-
                 if (successStatus)
                 {
+                    // Some sanity checks to warn the user if some options don't make sense
+                    if (!ValidateOptions())
+                    {
+                        Console.WriteLine($"*** Warning: The option \"removeencryptedcontent\" if used by itself will result in no files in the output folder.");
+                    }
+
+                    // Do this to set the wad file name
+                    UpdatePackedName();
+
                     // If IOS, see if user wants to patch with one or more of the bugs
                     if ((TruchaBugEnable == true) || (ESIdentityPatchEnable == true) || (NandPermissionPatchEnable == true))
                     {
@@ -3270,7 +3290,6 @@ namespace NUS_Downloader
                     try
                     {
                         Console.WriteLine($"Downloading using arguments: {commandArgs}");
-                        // keepenccontents.Checked = true;
                         NUSDownloader_DoWork(null, null);
                     }
                     catch (Exception ex)
@@ -3290,6 +3309,26 @@ namespace NUS_Downloader
                 }
                 Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
             }
+        }
+        private void ShowHelpText ()
+        {
+            Console.WriteLine("Usage:");
+            Console.WriteLine("    nusd <titleID> <titleVersion | *> [option] [option] ... [option]");
+            Console.WriteLine("\nWhere:");
+            Console.WriteLine("    titleID = The ID of the title to be downloaded");
+            Console.WriteLine("    titleVersion = The version of the title to be downloaded");
+            Console.WriteLine("              Use \"*\" (without quotes) to get the latest version");
+            Console.WriteLine("\n[option] can be any of the following:");
+            Console.WriteLine("    packwad = A wad file will be generated when appropriate");
+            Console.WriteLine("    localuse = All the downloaded files will be retained locally");
+            Console.WriteLine("    createdecryptedcontents = Create decrypted (.app) contents");
+            Console.WriteLine("    truchapatch = Apply Trucha patch to IOS");
+            Console.WriteLine("    esidentitypatch = Apply ES Identity patch to IOS");
+            Console.WriteLine("    nandpermissionpatch = Apply NAND Permission patch to IOS");
+            Console.WriteLine("    <NUSUrl> = Define a custom NUS Url in the format: http://x.y.z.host.com/css/download/");
+            Console.WriteLine("    <nusType> = Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
+            Console.WriteLine("    removeencryptedcontent = *** CAUTION *** - Remove downloaed contents after other operations are done. Refer to Readme.txt");
+            Console.WriteLine("    help = Show help text");
         }
     }
 }
