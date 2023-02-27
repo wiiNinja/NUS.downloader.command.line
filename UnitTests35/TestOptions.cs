@@ -15,7 +15,7 @@ namespace UnitTests
         // At the moment, either nusd.exe or NUSDownloader.exe can be used as CLI. 
         // In the future, I'll probably remove nusd.exe
         //private const string EXECUTABLE_NAME = "nusd.exe";
-        private const string EXECUTABLE_NAME = "NUSDownloader48.exe";
+        private const string EXECUTABLE_NAME = "NUSDownloader35.exe";
 
         [SetUp]
         public void Setup()
@@ -466,6 +466,7 @@ namespace UnitTests
             // Clean the folders of any results from previous test
             WipeOutputFolder(AssemblyFolder);
             WipeOutputFolder(TestRootFolder);
+            string curDir = Directory.GetCurrentDirectory();
 
             // Append any options to command
             string nusCmd = $"{AssemblyFolder}{Path.DirectorySeparatorChar}{EXECUTABLE_NAME} {titleId} {titleVersion}";

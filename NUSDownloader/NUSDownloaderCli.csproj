@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NUS_Downloader</RootNamespace>
-    <AssemblyName>NUSDownloader</AssemblyName>
+    <AssemblyName>NUSDownloader48</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Crystal_Clear_app_ark2.ico</ApplicationIcon>
@@ -269,7 +269,7 @@
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)compiled.outputs\$(TargetName).exe"
 copy /Y "$(TargetDir)Sample.CLI.bat" "$(SolutionDir)compiled.outputs\"
 copy /Y "$(TargetDir)Sample.CLI.Bogus.bat" "$(SolutionDir)compiled.outputs\"
-copy /Y "$(SolutionDir)Readme.txt" "$(SolutionDir)compiled.outputs\Readme.txt"
+copy /Y "$(SolutionDir)Readme.md" "$(SolutionDir)compiled.outputs\Readme.md"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2DB81B21-F00A-448A-86EF-18F72CE2306A}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUSDownloader3.5", "NUSDownloader\NUSDownloader3.5.csproj", "{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests35\UnitTests.csproj", "{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CommandLine|Any CPU = CommandLine|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}.CommandLine|Any CPU.ActiveCfg = CommandLine|Any CPU
+		{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}.CommandLine|Any CPU.Build.0 = CommandLine|Any CPU
+		{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB2AE23E-C9EC-4334-8D42-A65CA4EFF2C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}.CommandLine|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}.CommandLine|Any CPU.Build.0 = Debug|Any CPU
+		{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1E3EAFE-D431-4CC5-A2AC-77CC2C988B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {6AFD065A-C224-4F37-9BD8-25E4208A45FE}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
