@@ -64,7 +64,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>NUS_Downloader.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CommandLine|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -146,10 +146,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Windows7Taskbar.cs" />
-    <None Include="Sample.CLI.bat">
+    <None Include="Sample-net48-Bogus.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Sample.CLI.Bogus.bat">
+    <None Include="Sample-net48.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TODO" />
@@ -266,10 +266,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)compiled.outputs\$(TargetName).exe"
-copy /Y "$(TargetDir)Sample.CLI.bat" "$(SolutionDir)compiled.outputs\"
-copy /Y "$(TargetDir)Sample.CLI.Bogus.bat" "$(SolutionDir)compiled.outputs\"
-copy /Y "$(SolutionDir)Readme.md" "$(SolutionDir)compiled.outputs\Readme.md"
+    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)compiled.outputs\net4.8\$(TargetName).exe"
+copy /Y "$(TargetDir)Sample-net48.bat" "$(SolutionDir)compiled.outputs\net4.8\"
+copy /Y "$(TargetDir)Sample-net48-Bogus.bat" "$(SolutionDir)compiled.outputs\net4.8\"
+copy /Y "$(SolutionDir)Readme.md" "$(SolutionDir)compiled.outputs\net4.8\Readme.md"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

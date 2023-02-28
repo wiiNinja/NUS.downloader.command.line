@@ -45,7 +45,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)/*.*&quot; &quot;$(SolutionDir)compiled.outputs\&quot;" />
+    <Exec Command="copy /Y &quot;$(TargetDir)/*.*&quot; &quot;$(SolutionDir)compiled.outputs\net6.0\&quot;&#xD;&#xA;copy /Y &quot;$(SolutionDir)Readme.md&quot; &quot;$(SolutionDir)compiled.outputs\Readme.md&quot;" />
   </Target>
 
 </Project>

@@ -1,7 +1,7 @@
 @echo off
 
 rem set NUS_COMMAND=nusd
-set NUS_COMMAND=NUSDownloader.exe
+set NUS_COMMAND=NUSDownloader48.exe
 
 echo Get some titles with specific version
 %NUS_COMMAND% 000000010000000b 10
