@@ -66,7 +66,7 @@ Both results are the same.
     * Internet connection
 
 # Included:
-    * Binary NUSDownloader.exe
+    * Binaries for net3.5, net4.8 and net6.0 found in compiled_binaries folder
     * The original "NUSdownloader.exe" from WB3000 - Required to be in the same folder as nusd.exe
     * Modified source with Visual Studio solutions and projects
           NUSDownloaderNet6.sln - VS solution for the latest and greatest .NET6 - Can run natively in Linux
