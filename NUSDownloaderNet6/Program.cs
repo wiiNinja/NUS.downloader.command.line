@@ -156,12 +156,12 @@ else
 void ShowHelpText()
 {
     Console.WriteLine("Usage:");
-    Console.WriteLine("    nusd <titleID> <titleVersion | *> [option] [option] ... [option]");
-    Console.WriteLine("\nWhere:");
+    Console.WriteLine("    nusd <titleID> <titleVersion> [option] [option] ... [option]");
+    Console.WriteLine("Where:");
     Console.WriteLine("    titleID = The ID of the title to be downloaded");
-    Console.WriteLine("    titleVersion = The version of the title to be downloaded");
+    Console.WriteLine("    titleVersion = The numerical version of the title to be downloaded");
     Console.WriteLine("              Use \"*\" (without quotes) to get the latest version");
-    Console.WriteLine("\n[option] can be any of the following:");
+    Console.WriteLine("[option] can be any of the following:");
     Console.WriteLine("    packwad = A wad file will be generated when appropriate");
     Console.WriteLine("    localuse = All the downloaded files will be retained locally");
     Console.WriteLine("    createdecryptedcontents = Create decrypted (.app) contents");
@@ -172,4 +172,5 @@ void ShowHelpText()
     Console.WriteLine("    <nusType> = Select NUS type. Can be either \"wii\" or \"dsi\". Default is \"wii\"");
     Console.WriteLine("    removeencryptedcontent = *** CAUTION *** - Remove downloaded contents after other operations are done. Refer to Readme.txt");
     Console.WriteLine("    help = Show help text");
+    Console.WriteLine("Proxy Settings-Can be specified using the included proxy.json. See Readme.md for more details.");
 }
