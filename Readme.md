@@ -17,7 +17,7 @@ Both results are the same.
     <executableName> <titleID> <titleVersion> [option] [option] ... [option]
 
 ## Where: 
-    executableName = nusd.exe (legacy), NUSDownloader.exe (.net framework 3.5 and 4.8), NUSDownloaderNet6.exe (.NET6)
+    executableName = NUSDownloader35.exe (.NET 3.5 Framework), NUSDownloader48.exe (.NET 4.8 Framework), NUSDownloaderNet6.exe (.NET6)
         For Linux, replace executableName with: "dotnet NUSDownloader.dll" - The rest of the options are the same.
     titleID = The ID of the title to be downloaded
     titleVersion = The version of the title to be downloaded
@@ -61,7 +61,7 @@ Both results are the same.
     MS .NET6 supports different flavors of Linux. Build it yourself if you wish to build it for other flavors.
 
 # Requirements:
-    * You will need MS .NET Framework 4.8 or 3.5 to run this tool (branch dotnet3.5 is used for 3.5)
+    * You will need MS .NET Framework 4.8 or 3.5 to run this tool
     * Need to install .NET6 to run in a Linux environment
     * Internet connection
 
