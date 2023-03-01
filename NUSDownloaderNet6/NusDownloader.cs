@@ -1,16 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+﻿using Newtonsoft.Json;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.IO;
 
 namespace NUSDownloaderNet6
 {
@@ -242,17 +232,12 @@ namespace NUSDownloaderNet6
             else
                 titlename = titlename + "-NUS-[v].wad";
 
-            /* MTP - not needed - if (wadnamebox.InvokeRequired)
-            {
-                OfficialWADNamingCallback ownc = new OfficialWADNamingCallback(OfficialWADNaming);
-                wadnamebox.Invoke(ownc, new object[] { titlename });
-                return titlename;
-            } */
-
             WadFileName = titlename;
 
             if (TitleVersionOption != "")
+            {
                 WadFileName = WadFileName.Replace("[v]", "v" + TitleVersionOption);
+            }
 
             return titlename;
         }
@@ -263,7 +248,9 @@ namespace NUSDownloaderNet6
             foreach (char illegalchar in System.IO.Path.GetInvalidFileNameChars())
             {
                 if (databasestr.Contains(illegalchar.ToString()))
+                {
                     databasestr = databasestr.Replace(illegalchar, '-');
+                }
             }
             return databasestr;
         }
@@ -414,9 +401,13 @@ namespace NUSDownloaderNet6
                 libWiiSharp.WAD ioswad = new libWiiSharp.WAD();
                 WadFileName = WadFileName.Replace("[v]", nusClient.TitleVersion.ToString());
                 if (WadFileName.Contains(Path.DirectorySeparatorChar.ToString()) || WadFileName.Contains(Path.AltDirectorySeparatorChar.ToString()))
+                {
                     ioswad.LoadFile(WadFileName);
+                }
                 else
+                {
                     ioswad.LoadFile(Path.Combine(Path.Combine(Path.Combine(Path.Combine(CURRENT_DIR, "titles"), TitleIdOption), nusClient.TitleVersion.ToString()), WadFileName));
+                }
                 try
                 {
                     iosp.LoadIOS(ref ioswad);
@@ -434,14 +425,20 @@ namespace NUSDownloaderNet6
                     {
                         WriteStatus(" - Patched in fake-signing:");
                         if (noofpatches > 1)
+                        {
                             appendpatch = "es";
+                        }
                         else
+                        {
                             appendpatch = "";
+                        }
                         WriteStatus(String.Format("     {0} patch{1} applied.", noofpatches, appendpatch));
                         didpatch = true;
                     }
                     else
+                    {
                         WriteStatus(" - Could not patch fake-signing");
+                    }
                 }
                 if (PatchNandPermissionBug)
                 {
@@ -450,14 +447,20 @@ namespace NUSDownloaderNet6
                     {
                         WriteStatus(" - Patched in NAND permissions:");
                         if (noofpatches > 1)
+                        {
                             appendpatch = "es";
+                        }
                         else
+                        {
                             appendpatch = "";
+                        }
                         WriteStatus(String.Format("     {0} patch{1} applied.", noofpatches, appendpatch));
                         didpatch = true;
                     }
                     else
+                    {
                         WriteStatus(" - Could not patch NAND permissions");
+                    }
                 }
                 if (PatchEsIdentityBug)
                 {
@@ -466,14 +469,20 @@ namespace NUSDownloaderNet6
                     {
                         WriteStatus(" - Patched in ES_Identify:");
                         if (noofpatches > 1)
+                        {
                             appendpatch = "es";
+                        }
                         else
+                        {
                             appendpatch = "";
+                        }
                         WriteStatus(String.Format("     {0} patch{1} applied.", noofpatches, appendpatch));
                         didpatch = true;
                     }
                     else
+                    {
                         WriteStatus(" - Could not patch ES_Identify");
+                    }
                 }
                 if (didpatch)
                 {
@@ -481,9 +490,13 @@ namespace NUSDownloaderNet6
                     try
                     {
                         if (WadFileName.Contains(Path.DirectorySeparatorChar.ToString()) || WadFileName.Contains(Path.AltDirectorySeparatorChar.ToString()))
+                        {
                             ioswad.Save(WadFileName);
+                        }
                         else
+                        {
                             ioswad.Save(Path.Combine(Path.Combine(Path.Combine(Path.Combine(CURRENT_DIR, "titles"), TitleIdOption), nusClient.TitleVersion.ToString()), WadFileName));
+                        }
                         WriteStatus(String.Format("Patched WAD saved as: {0}", Path.GetFileName(WadFileName)));
                     }
                     catch (Exception ex)

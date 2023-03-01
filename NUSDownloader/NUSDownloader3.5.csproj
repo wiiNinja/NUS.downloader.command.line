@@ -269,6 +269,8 @@
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)compiled.outputs\net3.5\$(TargetName).exe"
 copy /Y "$(TargetDir)Sample-net35.bat" "$(SolutionDir)compiled.outputs\net3.5\"
 copy /Y "$(TargetDir)Sample-net35-Bogus.bat" "$(SolutionDir)compiled.outputs\net3.5\"
+copy /Y "$(TargetDir)database.xml" "$(SolutionDir)compiled.outputs\net3.5\"
+copy /Y "$(TargetDir)dsidatabase.xml" "$(SolutionDir)compiled.outputs\net3.5\"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

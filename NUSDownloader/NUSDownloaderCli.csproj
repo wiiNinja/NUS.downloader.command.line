@@ -270,6 +270,8 @@
 copy /Y "$(TargetDir)Sample-net48.bat" "$(SolutionDir)compiled.outputs\net4.8\"
 copy /Y "$(TargetDir)Sample-net48-Bogus.bat" "$(SolutionDir)compiled.outputs\net4.8\"
 copy /Y "$(SolutionDir)Readme.md" "$(SolutionDir)compiled.outputs\net4.8\Readme.md"
+copy /Y "$(TargetDir)database.xml" "$(SolutionDir)compiled.outputs\net4.8\"
+copy /Y "$(TargetDir)dsidatabase.xml" "$(SolutionDir)compiled.outputs\net4.8\"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

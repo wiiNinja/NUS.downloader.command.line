@@ -131,7 +131,7 @@ else
         // Get the files from the server
         try
         {
-            Console.WriteLine($"Downloading using arguments: {commandArgs}");
+            Console.WriteLine($"Downloading using arguments: {commandArgs}...");
             nusDownloader.NUSDownloader_DoWork();
         }
         catch (Exception ex)
