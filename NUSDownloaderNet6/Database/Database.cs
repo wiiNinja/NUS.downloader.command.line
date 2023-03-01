@@ -9,6 +9,10 @@ using System;
 using System.IO;
 using System.Xml;
 
+
+// MTP Note: This populates the GUI with items from the XML file. CLI does not need this functionality.
+// For CLI, the user should know what he's downloading.
+//
 namespace NUS_Downloader
 {
     class Database
