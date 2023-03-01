@@ -1,8 +1,5 @@
-using NUnit.Framework;
 using NUSDownloaderNet6;
-using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
